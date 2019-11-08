@@ -3,6 +3,7 @@ let TextPanel = ./types/TextPanel.dhall
 let Base = ./types/Base.dhall
 
 let graphPanel = ./defaults/GraphPanel.dhall
+let singlestatPanel = ./defaults/SinglestatPanel.dhall
 
 let MetricTarget = ./types/MetricTarget.dhall
 let Dashboard = ./defaults/Dashboard.dhall
@@ -11,10 +12,28 @@ let TemplatingDefaults = (./defaults/TemplatingVariable.dhall)
 let Link = (./types/Link.dhall)
 
 let panels =
-    [ Panels.mkTextPanel
+    [ Panels.mkSinglestatPanel
+        ( singlestatPanel //
+            { id = 0
+            , title = "Singlestat panel"
+            , gridPos = { x = 0, y = 0, w = 24, h = 3 }
+            , colorBackground = True
+            , targets =
+                [   { refId = "A"
+                    , expr = "sum(hass_temperature_c)"
+                    , intervalFactor = 1
+                    , format = MetricTarget.FormatType.time_series
+                    , legendFormat = None Text
+                    , interval = None Natural
+                    , instant = False
+                    }
+                ]
+            }
+        )
+    , Panels.mkTextPanel
         { id = 0
         , title = "Markdown panel"
-        , gridPos = { x = 0, y = 0, w = 12, h = 6 }
+        , gridPos = { x = 0, y = 3, w = 12, h = 6 }
         , content = "# foo"
         , mode = TextPanel.Mode.markdown
         , type = TextPanel.PanelType.text
@@ -22,7 +41,7 @@ let panels =
     , Panels.mkTextPanel
         { id = 0
         , title = "Html panel"
-        , gridPos = { x = 12, y = 0, w = 12, h = 6 }
+        , gridPos = { x = 12, y = 3, w = 12, h = 6 }
         , content = "<h1>bar</h1>"
         , mode = TextPanel.Mode.html
         , type = TextPanel.PanelType.text
@@ -31,7 +50,7 @@ let panels =
         ( graphPanel //
             { id = 0
             , title = "Graphy"
-            , gridPos = { x = 0, y = 7, w = 24, h = 6 }
+            , gridPos = { x = 0, y = 10, w = 24, h = 6 }
             , targets =
                 [ { refId = "A"
                   , expr = "hass_temperature_c"

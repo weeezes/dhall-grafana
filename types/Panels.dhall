@@ -1,10 +1,12 @@
 let BasePanel = ./BasePanel.dhall
 let TextPanel = (./TextPanel.dhall).Type
 let GraphPanel = (./GraphPanel.dhall).Type
+let SinglestatPanel = (./SinglestatPanel.dhall).Type
 
 let Panels = 
     < TextPanel : TextPanel
     | GraphPanel : GraphPanel
+    | SinglestatPanel : SinglestatPanel
     >
 
 let panelGenerator
@@ -33,10 +35,16 @@ let mkGraphPanel : GraphPanel -> Natural -> Panels =
         Panels.GraphPanel
         (λ(p : GraphPanel) → λ(id : Natural) → p ⫽ { id = id })
 
+let mkSinglestatPanel : SinglestatPanel -> Natural -> Panels =
+    panelGenerator
+        SinglestatPanel
+        Panels.SinglestatPanel
+        (λ(p : SinglestatPanel) → λ(id : Natural) → p ⫽ { id = id })
 
 in
 
 { Panels = Panels
 , mkTextPanel = mkTextPanel
 , mkGraphPanel = mkGraphPanel
+, mkSinglestatPanel = mkSinglestatPanel
 }
