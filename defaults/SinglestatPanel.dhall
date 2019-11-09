@@ -1,5 +1,5 @@
 let SinglestatPanel = ../types/SinglestatPanel.dhall
-let MetricTarget = ../types/MetricTarget.dhall
+let PrometheusTarget = ../types/PrometheusTarget.dhall
 let Link = ../types/Link.dhall
 
 in
@@ -18,7 +18,7 @@ in
 , colorPrefix = None Bool
 , datasource = "Prometheus"
 , decimals = None Natural
-, targets = [] : List MetricTarget.Type
+, targets = [] : List PrometheusTarget.Type
 , maxDataPoints = 100
 , format = "none"
 , prefix = ""

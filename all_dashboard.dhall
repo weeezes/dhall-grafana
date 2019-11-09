@@ -3,7 +3,7 @@ let Grafana = ./package.dhall
 let Panels = ./types/Panels.dhall
 let TextPanelMode = (./types/TextPanel.dhall).Mode
 
-let MetricTarget = ./types/MetricTarget.dhall
+let PrometheusTarget = ./types/PrometheusTarget.dhall
 let Variable = (./defaults/TemplatingVariable.dhall)
 
 let panels =
@@ -16,7 +16,7 @@ let panels =
                 [   { refId = "A"
                     , expr = "sum(hass_temperature_c)"
                     , intervalFactor = 1
-                    , format = MetricTarget.FormatType.time_series
+                    , format = PrometheusTarget.FormatType.time_series
                     , legendFormat = None Text
                     , interval = None Natural
                     , instant = False
@@ -56,7 +56,7 @@ let panels =
                 [ { refId = "A"
                   , expr = "hass_temperature_c"
                   , intervalFactor = 1
-                  , format = MetricTarget.FormatType.time_series
+                  , format = PrometheusTarget.FormatType.time_series
                   , legendFormat = Some "{{ friendly_name }}"
                   , interval = None Natural
                   , instant = False

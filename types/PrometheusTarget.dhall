@@ -1,5 +1,5 @@
 let FormatType = < table | time_series | heatmap >
-let MetricTarget =
+let PrometheusTarget =
     { refId : Text
     , expr : Text
     , intervalFactor : Natural
@@ -11,6 +11,6 @@ let MetricTarget =
 
 in
 
-{ Type = MetricTarget
+{ Type = PrometheusTarget
 , FormatType = FormatType
 }

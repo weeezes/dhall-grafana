@@ -3,7 +3,7 @@ let Grafana = ../package.dhall
 let Panels = ../types/Panels.dhall
 
 
-let MetricTarget = ../types/MetricTarget.dhall
+let PrometheusTarget = ../types/PrometheusTarget.dhall
 let Variable = (../defaults/TemplatingVariable.dhall)
 
 let templateVariables =
@@ -39,7 +39,7 @@ let panels =
                         sum(hass_temperature_c{friendly_name="$temperatures"})
                         ''
                     , intervalFactor = 1
-                    , format = MetricTarget.FormatType.time_series
+                    , format = PrometheusTarget.FormatType.time_series
                     , legendFormat = None Text
                     , interval = None Natural
                     , instant = False
@@ -56,7 +56,7 @@ let panels =
                 [ { refId = "A"
                   , expr = "sum(hass_temperature_c{}) by (friendly_name)"
                   , intervalFactor = 1
-                  , format = MetricTarget.FormatType.time_series
+                  , format = PrometheusTarget.FormatType.time_series
                   , legendFormat = Some "{{ friendly_name }}"
                   , interval = None Natural
                   , instant = False
@@ -75,7 +75,7 @@ let panels =
                 [ { refId = "A"
                   , expr = "sum(hass_humidity_percent{}) by (friendly_name)"
                   , intervalFactor = 1
-                  , format = MetricTarget.FormatType.time_series
+                  , format = PrometheusTarget.FormatType.time_series
                   , legendFormat = Some "{{ friendly_name }}"
                   , interval = None Natural
                   , instant = False
@@ -98,7 +98,7 @@ let panels =
                         sum(hass_switch_state{friendly_name="$switches"}) by (friendly_name)
                         ''
                     , intervalFactor = 1
-                    , format = MetricTarget.FormatType.time_series
+                    , format = PrometheusTarget.FormatType.time_series
                     , legendFormat = None Text
                     , interval = None Natural
                     , instant = False

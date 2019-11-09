@@ -1,4 +1,4 @@
-let MetricTarget = (./MetricTarget.dhall).Type
+let PrometheusTarget = (./PrometheusTarget.dhall).Type
 
 let PanelType = < graph >
 let NullPointMode = < null | connected | `null as zero` >
@@ -8,7 +8,7 @@ let GraphPanel =
     ./BasePanel.dhall //\\
     { type : PanelType 
     , datasource : Text 
-    , targets : List MetricTarget
+    , targets : List PrometheusTarget
     , options : {} 
     , renderer : Text 
     , yaxes : List (./YAxis.dhall).Type
