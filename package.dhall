@@ -1,4 +1,4 @@
-{ Base = ./types/Base.dhall
+{ Utils = ./types/Utils.dhall
 , Dashboard =
     { default = ./defaults/Dashboard.dhall
     , Type = (./types/Dashboard.dhall).Type

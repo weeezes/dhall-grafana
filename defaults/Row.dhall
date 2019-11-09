@@ -1,8 +1,9 @@
 let Row = ../types/Row.dhall
 in
 
-{ collapsed = False
-, type = Row.PanelType.row
+{ type = Row.PanelType.row
+, id = 0
+, collapsed = False
 , links = [] : List (../types/Link.dhall).Types
 , repeat = None Text
 , repeatDirection = None ../types/Direction.dhall

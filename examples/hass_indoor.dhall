@@ -27,10 +27,9 @@ let templateVariables =
 let panels =
     [ Panels.mkSinglestatPanel
         ( Grafana.SinglestatPanel::
-            { id = 0
+            { title = "$temperatures"
             , repeat = Some "temperatures"
             , maxPerRow = Some 12
-            , title = "$temperatures"
             , gridPos = { x = 0, y = 0, w = 3, h = 3 }
             , postfix = "°C"
             , targets =
@@ -50,8 +49,7 @@ let panels =
         )
     , Panels.mkGraphPanel
         ( Grafana.GraphPanel::
-            { id = 0
-            , title = "Temperature"
+            { title = "Temperature"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , legend = Grafana.Legend::{ rightSide = True }
             , targets =
@@ -70,8 +68,7 @@ let panels =
         )
     , Panels.mkGraphPanel
         ( Grafana.GraphPanel::
-            { id = 0
-            , title = "Humidity"
+            { title = "Humidity"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , legend = Grafana.Legend::{ rightSide = True }
             , targets =
@@ -90,8 +87,7 @@ let panels =
         )
     , Panels.mkSinglestatPanel
         ( Grafana.SinglestatPanel::
-            { id = 0
-            , repeat = Some "switches"
+            { repeat = Some "switches"
             , maxPerRow = Some 12
             , title = "$switches"
             , gridPos = { x = 0, y = 19, w = 3, h = 3 }
@@ -134,7 +130,7 @@ let dashboard : Grafana.Dashboard.Type =
         { title = "Hass indoor air"
         , uid = "hass-indoor-air"
         , panels =
-            (Grafana.Base.generateIds panels)
+            (Grafana.Utils.generateIds panels)
         , editable = True
         , templating = { list = templateVariables }
         , links = links

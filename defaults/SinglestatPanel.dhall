@@ -5,6 +5,7 @@ let Link = ../types/Link.dhall
 in
 
 { type = SinglestatPanel.PanelType.singlestat
+, id = 0
 , links = [] : List Link.Types
 , repeat = None Text
 , repeatDirection = None ../types/Direction.dhall

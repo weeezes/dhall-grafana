@@ -9,8 +9,7 @@ let Variable = (./defaults/TemplatingVariable.dhall)
 let panels =
     [ Panels.mkSinglestatPanel
         ( Grafana.SinglestatPanel::
-            { id = 0
-            , title = "Singlestat panel"
+            { title = "Singlestat panel"
             , gridPos = { x = 0, y = 0, w = 24, h = 3 }
             , colorBackground = True
             , targets =
@@ -27,8 +26,7 @@ let panels =
         )
     , Panels.mkRow
         ( Grafana.Row::
-            { id = 0
-            , title = "This is a row $Temperature"
+            { title = "This is a row $Temperature"
             , gridPos = { x = 0, y = 4, w = 0, h = 0 }
             , repeat = Some "Temperature"
             }
@@ -36,8 +34,7 @@ let panels =
         )
     , Panels.mkTextPanel
         ( Grafana.TextPanel::
-            { id = 0
-            , title = "Markdown panel"
+            { title = "Markdown panel"
             , gridPos = { x = 0, y = 5, w = 12, h = 6 }
             , content = "# foo"
             , mode = TextPanelMode.markdown
@@ -45,8 +42,7 @@ let panels =
         )
     , Panels.mkTextPanel
         ( Grafana.TextPanel::
-            { id = 0
-            , title = "Html panel"
+            { title = "Html panel"
             , gridPos = { x = 12, y = 5, w = 12, h = 6 }
             , content = "<h1>bar</h1>"
             , mode = TextPanelMode.html
@@ -54,8 +50,7 @@ let panels =
         )
     , Panels.mkGraphPanel
         ( Grafana.GraphPanel::
-            { id = 0
-            , title = "Temperature"
+            { title = "Temperature"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , targets =
                 [ { refId = "A"
@@ -122,14 +117,14 @@ let links =
         )
     ]
 
-    let dashboard : Grafana.Dashboard.Type =
-        Grafana.Dashboard::
-            { panels =
-                (Grafana.Base.generateIds panels)
-            , editable = True
-            , templating = { list = templateVariables }
-            , links = links
-            }
+let dashboard : Grafana.Dashboard.Type =
+    Grafana.Dashboard::
+        { panels =
+            (Grafana.Utils.generateIds panels)
+        , editable = True
+        , templating = { list = templateVariables }
+        , links = links
+        }
 
 in
     dashboard
