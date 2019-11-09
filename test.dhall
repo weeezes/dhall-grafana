@@ -71,55 +71,58 @@ let panels =
         )
     ]
 
+let templateVariables =
+    [ Variable.mkQuery
+        "Temperature"
+        "label_values(hass_temperature_c, entity)"
+        "Prometheus"
+    , Variable.mkInterval
+        "Interval"
+        ["5s", "10s", "15s", "20s", "25s"]
+    , Variable.mkDatasource
+        "Datasource"
+        "prometheus"
+        ""
+    , Variable.mkCustom
+        "Custom"
+        ["one", "two", "three", "four"]
+    , Variable.mkConstant
+        "Constant"
+        "foobarbaz"
+    , Variable.mkTextbox
+        "Textbox"
+        ''
+        some textbox value
+        ''
+    , Variable.mkAdHoc
+        "Adhoc"
+        ([] : List { key : Text, operator : Text, value : Text })
+    ]
+
+let links =
+    [ Link.Types.Dashboards
+        ( Grafana.LinkDashboards::
+            { tags = [ "prometheus" ]
+            , title = "Dashboards"
+            }
+        )
+    , Link.Types.Link
+        ( Grafana.LinkExternal::
+            { title = "Links"
+            , url = "https://learnxinyminutes.com/docs/dhall/"
+            , tooltip = "Learn Dhall"
+            }
+        )
+    ]
+
     let dashboard : Grafana.Dashboard.Type =
         Grafana.Dashboard::
             { panels =
                 (Base.generateIds panels)
             , editable = True
-            , templating =
-                { list =
-                    [ Variable.mkQuery
-                        "Temperature"
-                        "label_values(hass_temperature_c, entity)"
-                        "Prometheus"
-                    , Variable.mkInterval
-                        "Interval"
-                        ["5s", "10s", "15s", "20s", "25s"]
-                    , Variable.mkDatasource
-                        "Datasource"
-                        "prometheus"
-                        ""
-                    , Variable.mkCustom
-                        "Custom"
-                        ["one", "two", "three", "four"]
-                    , Variable.mkConstant
-                        "Constant"
-                        "foobarbaz"
-                    , Variable.mkTextbox
-                        "Textbox"
-                        ''
-                        some textbox value
-                        ''
-                    , Variable.mkAdHoc
-                        "Adhoc"
-                        ([] : List { key : Text, operator : Text, value : Text })
-                    ]
-                }
-            , links =
-                [ Link.Types.Dashboards
-                    ( Grafana.LinkDashboards::
-                        { tags = [ "prometheus" ]
-                        , title = "Dashboards"
-                        }
-                    )
-                , Link.Types.Link
-                    ( Grafana.LinkExternal::
-                        { title = "Links"
-                        , url = "https://learnxinyminutes.com/docs/dhall/"
-                        , tooltip = "Learn Dhall"
-                        }
-                    )
-                ]
+            , templating = { list = templateVariables }
+            , links = links
             }
+
 in
     dashboard
