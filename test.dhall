@@ -32,11 +32,19 @@ let panels =
                 ]
             }
         )
+    , Panels.mkRow
+        ( Grafana.Row::
+            { id = 0
+            , title = "This is a row"
+            , gridPos = { x = 0, y = 4, w = 0, h = 0 }
+            }
+
+        )
     , Panels.mkTextPanel
         ( Grafana.TextPanel::
             { id = 0
             , title = "Markdown panel"
-            , gridPos = { x = 0, y = 3, w = 12, h = 6 }
+            , gridPos = { x = 0, y = 5, w = 12, h = 6 }
             , content = "# foo"
             , mode = TextPanel.Mode.markdown
             , type = TextPanel.PanelType.text
@@ -46,7 +54,7 @@ let panels =
         ( Grafana.TextPanel::
             { id = 0
             , title = "Html panel"
-            , gridPos = { x = 12, y = 3, w = 12, h = 6 }
+            , gridPos = { x = 12, y = 5, w = 12, h = 6 }
             , content = "<h1>bar</h1>"
             , mode = TextPanel.Mode.html
             , type = TextPanel.PanelType.text
@@ -55,8 +63,8 @@ let panels =
     , Panels.mkGraphPanel
         ( Grafana.GraphPanel::
             { id = 0
-            , title = "Graphy"
-            , gridPos = { x = 0, y = 10, w = 24, h = 6 }
+            , title = "Temperature"
+            , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , targets =
                 [ { refId = "A"
                   , expr = "hass_temperature_c"

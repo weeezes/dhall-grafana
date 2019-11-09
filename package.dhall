@@ -22,4 +22,8 @@
     { default = (./defaults/Link.dhall).LinkDashboards
     , Type = (./types/Link.dhall).Dashboards
     }
+, Row =
+    { default = ./defaults/Row.dhall
+    , Type = (./types/Row.dhall).Type
+    }
 }
