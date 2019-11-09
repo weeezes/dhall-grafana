@@ -1,17 +1,10 @@
 let Grafana = ./package.dhall
 
 let Panels = ./types/Panels.dhall
-let TextPanel = ./types/TextPanel.dhall
-let Base = ./types/Base.dhall
-
-let graphPanel = ./defaults/GraphPanel.dhall
-let singlestatPanel = ./defaults/SinglestatPanel.dhall
+let TextPanelMode = (./types/TextPanel.dhall).Mode
 
 let MetricTarget = ./types/MetricTarget.dhall
-let Dashboard = ./defaults/Dashboard.dhall
-let Templating = (./types/TemplatingVariable.dhall).Types
 let Variable = (./defaults/TemplatingVariable.dhall)
-let Link = (./types/Link.dhall)
 
 let panels =
     [ Panels.mkSinglestatPanel
@@ -47,8 +40,7 @@ let panels =
             , title = "Markdown panel"
             , gridPos = { x = 0, y = 5, w = 12, h = 6 }
             , content = "# foo"
-            , mode = TextPanel.Mode.markdown
-            , type = TextPanel.PanelType.text
+            , mode = TextPanelMode.markdown
             }
         )
     , Panels.mkTextPanel
@@ -57,8 +49,7 @@ let panels =
             , title = "Html panel"
             , gridPos = { x = 12, y = 5, w = 12, h = 6 }
             , content = "<h1>bar</h1>"
-            , mode = TextPanel.Mode.html
-            , type = TextPanel.PanelType.text
+            , mode = TextPanelMode.html
             }
         )
     , Panels.mkGraphPanel
@@ -116,13 +107,13 @@ let templateVariables =
     ]
 
 let links =
-    [ Link.Types.Dashboards
+    [ Grafana.Link.Type.Dashboards
         ( Grafana.LinkDashboards::
             { tags = [ "prometheus" ]
             , title = "Dashboards"
             }
         )
-    , Link.Types.Link
+    , Grafana.Link.Type.Link
         ( Grafana.LinkExternal::
             { title = "Links"
             , url = "https://learnxinyminutes.com/docs/dhall/"
@@ -134,7 +125,7 @@ let links =
     let dashboard : Grafana.Dashboard.Type =
         Grafana.Dashboard::
             { panels =
-                (Base.generateIds panels)
+                (Grafana.Base.generateIds panels)
             , editable = True
             , templating = { list = templateVariables }
             , links = links

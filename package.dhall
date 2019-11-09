@@ -15,6 +15,10 @@
     { default = ./defaults/GraphPanel.dhall
     , Type = (./types/GraphPanel.dhall).Type
     }
+, Link =
+    { default = (./types/Link.dhall).Types.Link
+    , Type = (./types/Link.dhall).Types
+    }
 , LinkExternal =
     { default = (./defaults/Link.dhall).LinkExternal
     , Type = (./types/Link.dhall).Link
