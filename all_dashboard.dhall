@@ -126,7 +126,9 @@ let links =
 
 let dashboard : Grafana.Dashboard.Type =
     Grafana.Dashboard::
-        { panels =
+        { title = "dhall-grafana sample"
+        , uid = "dhall-grafana-sample"
+        , panels =
             (Grafana.Utils.generateIds panels)
         , editable = True
         , templating = { list = templateVariables }
