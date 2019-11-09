@@ -25,7 +25,7 @@ let queryValue =
 
 let QueryVariable = Templating.QueryVariable queryValue
 
-let mkQueryVariable =
+let mkQuery =
     \(name : Text)
     -> \(query : Text)
     -> \(datasource : Text) 
@@ -53,7 +53,7 @@ let intervalValue =
 
 let IntervalVariable = Templating.IntervalVariable intervalValue
 
-let mkIntervalVariable =
+let mkInterval =
     \(name : Text)
     -> \(options : List Text)
     ->  let opt = 
@@ -82,7 +82,7 @@ let datasourceValue =
 
 let DatasourceVariable = Templating.DatasourceVariable datasourceValue
 
-let  mkDatasourceVariable =
+let  mkDatasource =
     \(name : Text)
     -> \(query : Text)
     -> \(regex : Text)
@@ -111,7 +111,7 @@ let customValue =
 
 let CustomVariable = Templating.CustomVariable customValue
 
-let mkCustomVariable =
+let mkCustom =
     \(name : Text)
     -> \(options : List Text)
     ->  let opt = 
@@ -137,7 +137,7 @@ let constantValue =
 
 let ConstantVariable = Templating.ConstantVariable constantValue
 
-let mkConstantVariable =
+let mkConstant =
     \(name : Text)
     -> \(value : Text)
     -> Templating.ConstantVariable (constantValue // { name = name, query = value, options = [{ selected = True, text = value, value = value }]})
@@ -159,7 +159,7 @@ let textboxValue =
 
 let TextboxVariable = Templating.TextboxVariable textboxValue
 
-let mkTextboxVariable =
+let mkTextbox =
     \(name : Text)
     -> \(value : Text)
     -> Templating.TextboxVariable (textboxValue // { name = name, query = value })
@@ -181,7 +181,7 @@ let adHocValue =
 
 let AdHocVariable = Templating.AdHocVariable adHocValue
 
-let mkAdHocVariable =
+let mkAdHoc =
     \(name : Text)
     -> \(filters : List { key : Text, operator : Text, value : Text })
     -> Templating.AdHocVariable (adHocValue // { name = name, filters = filters })
@@ -189,17 +189,17 @@ let mkAdHocVariable =
 in
 
 { QueryVariable = QueryVariable
-, mkQueryVariable = mkQueryVariable
+, mkQuery = mkQuery
 , IntervalVariable = IntervalVariable
-, mkIntervalVariable = mkIntervalVariable
+, mkInterval = mkInterval
 , DatasourceVariable = DatasourceVariable
-, mkDatasourceVariable = mkDatasourceVariable
+, mkDatasource = mkDatasource
 , CustomVariable = CustomVariable
-, mkCustomVariable = mkCustomVariable
+, mkCustom = mkCustom
 , ConstantVariable = ConstantVariable
-, mkConstantVariable = mkConstantVariable
+, mkConstant = mkConstant
 , TextboxVariable = TextboxVariable
-, mkTextboxVariable = mkTextboxVariable
+, mkTextbox = mkTextbox
 , AdHocVariable = AdHocVariable
-, mkAdHocVariable = mkAdHocVariable
+, mkAdHoc = mkAdHoc
 }
