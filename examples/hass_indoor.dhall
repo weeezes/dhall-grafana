@@ -2,7 +2,7 @@ let Grafana = ../package.dhall
 
 let Panels = ../types/Panels.dhall
 
-
+let MetricTargets = (../types/MetricTargets.dhall).MetricTargets
 let PrometheusTarget = ../types/PrometheusTarget.dhall
 let Variable = (../defaults/TemplatingVariable.dhall)
 
@@ -33,7 +33,8 @@ let panels =
             , gridPos = { x = 0, y = 0, w = 3, h = 3 }
             , postfix = "°C"
             , targets =
-                [   { refId = "A"
+                [ MetricTargets.PrometheusTarget
+                    { refId = "A"
                     , expr = 
                         ''
                         sum(hass_temperature_c{friendly_name="$temperatures"})
@@ -53,14 +54,15 @@ let panels =
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , legend = Grafana.Legend::{ rightSide = True }
             , targets =
-                [ { refId = "A"
-                  , expr = "sum(hass_temperature_c{}) by (friendly_name)"
-                  , intervalFactor = 1
-                  , format = PrometheusTarget.FormatType.time_series
-                  , legendFormat = Some "{{ friendly_name }}"
-                  , interval = None Natural
-                  , instant = False
-                  }
+                [ MetricTargets.PrometheusTarget
+                    { refId = "A"
+                    , expr = "sum(hass_temperature_c{}) by (friendly_name)"
+                    , intervalFactor = 1
+                    , format = PrometheusTarget.FormatType.time_series
+                    , legendFormat = Some "{{ friendly_name }}"
+                    , interval = None Natural
+                    , instant = False
+                    }
                 ]
             , fill = 0
             , linewidth = 2
@@ -72,14 +74,15 @@ let panels =
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , legend = Grafana.Legend::{ rightSide = True }
             , targets =
-                [ { refId = "A"
-                  , expr = "sum(hass_humidity_percent{}) by (friendly_name)"
-                  , intervalFactor = 1
-                  , format = PrometheusTarget.FormatType.time_series
-                  , legendFormat = Some "{{ friendly_name }}"
-                  , interval = None Natural
-                  , instant = False
-                  }
+                [ MetricTargets.PrometheusTarget
+                    { refId = "A"
+                    , expr = "sum(hass_humidity_percent{}) by (friendly_name)"
+                    , intervalFactor = 1
+                    , format = PrometheusTarget.FormatType.time_series
+                    , legendFormat = Some "{{ friendly_name }}"
+                    , interval = None Natural
+                    , instant = False
+                    }
                 ]
             , fill = 0
             , linewidth = 2
@@ -92,7 +95,8 @@ let panels =
             , title = "$switches"
             , gridPos = { x = 0, y = 19, w = 3, h = 3 }
             , targets =
-                [   { refId = "A"
+                [ MetricTargets.PrometheusTarget
+                    { refId = "A"
                     , expr = 
                         ''
                         sum(hass_switch_state{friendly_name="$switches"}) by (friendly_name)

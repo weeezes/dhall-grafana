@@ -3,6 +3,7 @@ let Grafana = ./package.dhall
 let Panels = ./types/Panels.dhall
 let TextPanelMode = (./types/TextPanel.dhall).Mode
 
+let MetricTargets = (./types/MetricTargets.dhall).MetricTargets
 let PrometheusTarget = ./types/PrometheusTarget.dhall
 let Variable = (./defaults/TemplatingVariable.dhall)
 
@@ -13,13 +14,9 @@ let panels =
             , gridPos = { x = 0, y = 0, w = 24, h = 3 }
             , colorBackground = True
             , targets =
-                [   { refId = "A"
-                    , expr = "sum(hass_temperature_c)"
-                    , intervalFactor = 1
-                    , format = PrometheusTarget.FormatType.time_series
-                    , legendFormat = None Text
-                    , interval = None Natural
-                    , instant = False
+                [   MetricTargets.TestDataDBTarget
+                    { refId = "A"
+                    , scenarioId = "random_walk"
                     }
                 ]
             }
@@ -53,32 +50,28 @@ let panels =
             { title = "Temperature"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , targets =
-                [ { refId = "A"
-                  , expr = "hass_temperature_c"
-                  , intervalFactor = 1
-                  , format = PrometheusTarget.FormatType.time_series
-                  , legendFormat = Some "{{ friendly_name }}"
-                  , interval = None Natural
-                  , instant = False
-                  }
+                [ MetricTargets.TestDataDBTarget
+                    { refId = "A"
+                    , scenarioId = "random_walk"
+                    }
                 ]
             }
         )
     ]
 
 let templateVariables =
-    [ Variable.mkQuery
-        "Temperature"
-        "label_values(hass_temperature_c, entity)"
-        "Prometheus"
-        False
-    , Variable.mkInterval
+    [ Variable.mkInterval
         "Interval"
         ["5s", "10s", "15s", "20s", "25s"]
         False
+  {-,  Variable.mkQuery
+        "Temperature"
+        "label_values(hass_temperature_c, entity)"
+        "Prometheus"
+        False -}
     , Variable.mkDatasource
         "Datasource"
-        "prometheus"
+        "TestData DB"
         ""
         False
     , Variable.mkCustom

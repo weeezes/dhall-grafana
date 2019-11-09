@@ -4,7 +4,7 @@ let SinglestatPanel =
     ./BasePanel.dhall //\\
     { type : PanelType
     , datasource : Text
-    , targets : List (./PrometheusTarget.dhall).Type
+    , targets : List (./MetricTargets.dhall).MetricTargets
     , timeFrom : Optional Text
     , timeShift : Optional Text
     , options : {}

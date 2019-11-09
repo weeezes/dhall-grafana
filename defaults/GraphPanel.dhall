@@ -1,5 +1,5 @@
 let GraphPanel = ../types/GraphPanel.dhall
-let PrometheusTarget = (../types/PrometheusTarget.dhall).Type
+let MetricTargets = (../types/MetricTargets.dhall).MetricTargets
 in
 
 { type = GraphPanel.PanelType.graph
@@ -10,7 +10,7 @@ in
 , maxPerRow = None Natural
 , transparent = False
 , datasource = "default"
-, targets = [] : List PrometheusTarget
+, targets = [] : List MetricTargets
 , options = {=} 
 , renderer = "flot" 
 , yaxes =
