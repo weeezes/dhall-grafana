@@ -12,4 +12,6 @@ dhall-to-json --file all_dashboard.dhall
 
 Import the output to Grafana and you're done!
 
-Make sure you have a [TestData DB datasource](https://grafana.com/docs/features/datasources/testdata/) configured to see the `all_dashboard.dhall` graphs be populated.
+Make sure you have a [TestData DB datasource](https://grafana.com/docs/features/datasources/testdata/) configured to see the [`all_dashboard.dhall`](./all_dashboard.dhall) graphs be populated.
+
+![all_dashboard_sample.png](docs/screenshots/all_dashboard_sample.png)
