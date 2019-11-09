@@ -7,12 +7,15 @@ let MetricTargets = (./types/MetricTargets.dhall).MetricTargets
 let PrometheusTarget = ./types/PrometheusTarget.dhall
 let Variable = (./defaults/TemplatingVariable.dhall)
 
+let datasourceName = "Datasource"
+
 let panels =
     [ Panels.mkSinglestatPanel
         ( Grafana.SinglestatPanel::
             { title = "Singlestat panel"
             , gridPos = { x = 0, y = 0, w = 24, h = 3 }
             , colorBackground = True
+            , datasource = "$" ++ datasourceName
             , targets =
                 [   MetricTargets.TestDataDBTarget
                     { refId = "A"
@@ -23,9 +26,9 @@ let panels =
         )
     , Panels.mkRow
         ( Grafana.Row::
-            { title = "This is a row $Temperature"
+            { title = "This is the $Custom row"
             , gridPos = { x = 0, y = 4, w = 0, h = 0 }
-            , repeat = Some "Temperature"
+            , repeat = Some "Custom"
             }
 
         )
@@ -33,7 +36,12 @@ let panels =
         ( Grafana.TextPanel::
             { title = "Markdown panel"
             , gridPos = { x = 0, y = 5, w = 12, h = 6 }
-            , content = "# foo"
+            , content =
+                ''
+                # foo
+
+                $Custom
+                ''
             , mode = TextPanelMode.markdown
             }
         )
@@ -41,7 +49,12 @@ let panels =
         ( Grafana.TextPanel::
             { title = "Html panel"
             , gridPos = { x = 12, y = 5, w = 12, h = 6 }
-            , content = "<h1>bar</h1>"
+            , content =
+                ''
+                <h1>bar</h1>
+                <br>
+                $Custom
+                ''
             , mode = TextPanelMode.html
             }
         )
@@ -49,6 +62,7 @@ let panels =
         ( Grafana.GraphPanel::
             { title = "Temperature"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
+            , datasource = "$" ++ datasourceName
             , targets =
                 [ MetricTargets.TestDataDBTarget
                     { refId = "A"
@@ -70,13 +84,13 @@ let templateVariables =
         "Prometheus"
         False -}
     , Variable.mkDatasource
-        "Datasource"
-        "TestData DB"
+        datasourceName
+        "testdata"
         ""
         False
     , Variable.mkCustom
         "Custom"
-        ["one", "two", "three", "four"]
+        ["1st", "2nd", "3rd"]
         False
     , Variable.mkConstant
         "Constant"
