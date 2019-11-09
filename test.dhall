@@ -89,6 +89,7 @@ let templateVariables =
     , Variable.mkInterval
         "Interval"
         ["5s", "10s", "15s", "20s", "25s"]
+        False
     , Variable.mkDatasource
         "Datasource"
         "prometheus"
@@ -97,17 +98,21 @@ let templateVariables =
     , Variable.mkCustom
         "Custom"
         ["one", "two", "three", "four"]
+        False
     , Variable.mkConstant
         "Constant"
         "foobarbaz"
+        False
     , Variable.mkTextbox
         "Textbox"
         ''
         some textbox value
         ''
+        False
     , Variable.mkAdHoc
         "Adhoc"
         ([] : List { key : Text, operator : Text, value : Text })
+        False
     ]
 
 let links =

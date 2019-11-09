@@ -62,6 +62,7 @@ let IntervalVariable = Templating.IntervalVariable intervalValue
 let mkInterval =
     \(name : Text)
     -> \(options : List Text)
+    -> \(_hide : Bool)
     ->  let opt = 
             map
                 Text
@@ -70,7 +71,7 @@ let mkInterval =
                 options
         in
             Templating.IntervalVariable
-                (intervalValue // { name = name, options = opt, query = concatSep "," options })
+                (intervalValue // { name = name, options = opt, query = concatSep "," options, hide = hide _hide })
 
 let datasourceValue =
     { includeAll = False
@@ -121,6 +122,7 @@ let CustomVariable = Templating.CustomVariable customValue
 let mkCustom =
     \(name : Text)
     -> \(options : List Text)
+    -> \(_hide : Bool)
     ->  let opt = 
             map
                 Text
@@ -128,7 +130,7 @@ let mkCustom =
                 (\(o : Text) -> { selected = False, text = o, value = o })
                 options
         in
-            Templating.CustomVariable (customValue // { name = name, options = opt, query = concatSep "," options })
+            Templating.CustomVariable (customValue // { name = name, options = opt, query = concatSep "," options, hide = hide _hide })
 
 let constantValue =
     { current = None { text : Text, value : Text }
@@ -147,7 +149,8 @@ let ConstantVariable = Templating.ConstantVariable constantValue
 let mkConstant =
     \(name : Text)
     -> \(value : Text)
-    -> Templating.ConstantVariable (constantValue // { name = name, query = value, options = [{ selected = True, text = value, value = value }]})
+    -> \(_hide : Bool)
+    -> Templating.ConstantVariable (constantValue // { name = name, query = value, options = [{ selected = True, text = value, value = value }], hide = hide _hide })
 
 let textboxValue =
     { current = None { text : Text, value : Text }
@@ -169,7 +172,8 @@ let TextboxVariable = Templating.TextboxVariable textboxValue
 let mkTextbox =
     \(name : Text)
     -> \(value : Text)
-    -> Templating.TextboxVariable (textboxValue // { name = name, query = value })
+    -> \(_hide : Bool)
+    -> Templating.TextboxVariable (textboxValue // { name = name, query = value, hide = hide _hide })
 
 let adHocValue =
     { hide = 0
@@ -191,7 +195,8 @@ let AdHocVariable = Templating.AdHocVariable adHocValue
 let mkAdHoc =
     \(name : Text)
     -> \(filters : List { key : Text, operator : Text, value : Text })
-    -> Templating.AdHocVariable (adHocValue // { name = name, filters = filters })
+    -> \(_hide : Bool)
+    -> Templating.AdHocVariable (adHocValue // { name = name, filters = filters, hide = hide _hide })
 
 in
 
