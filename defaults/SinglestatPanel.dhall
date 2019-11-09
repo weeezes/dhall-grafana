@@ -7,6 +7,8 @@ in
 { type = SinglestatPanel.PanelType.singlestat
 , links = [] : List Link.Types
 , repeat = None Text
+, repeatDirection = None ../types/Direction.dhall
+, maxPerRow = None Natural
 , transparent = False
 , timeFrom = None Text
 , timeShift = None Text

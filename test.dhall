@@ -85,6 +85,7 @@ let templateVariables =
         "Temperature"
         "label_values(hass_temperature_c, entity)"
         "Prometheus"
+        False
     , Variable.mkInterval
         "Interval"
         ["5s", "10s", "15s", "20s", "25s"]
@@ -92,6 +93,7 @@ let templateVariables =
         "Datasource"
         "prometheus"
         ""
+        False
     , Variable.mkCustom
         "Custom"
         ["one", "two", "three", "four"]

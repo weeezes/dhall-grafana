@@ -1,3 +1,3 @@
-{ enable : Bool,
-, list : List (./TemplatingVariable.dhall).Type
+{ enable : Bool
+, list : List (./TemplatingVariable.dhall).Types
 }

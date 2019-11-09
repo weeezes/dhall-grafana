@@ -1,4 +1,5 @@
-{ Dashboard =
+{ Base = ./types/Base.dhall
+, Dashboard =
     { default = ./defaults/Dashboard.dhall
     , Type = (./types/Dashboard.dhall).Type
     }
@@ -21,6 +22,10 @@
 , LinkDashboards =
     { default = (./defaults/Link.dhall).LinkDashboards
     , Type = (./types/Link.dhall).Dashboards
+    }
+, Legend =
+    { default = (./defaults/Legend.dhall)
+    , Type = ./types/Legend.dhall
     }
 , Row =
     { default = ./defaults/Row.dhall

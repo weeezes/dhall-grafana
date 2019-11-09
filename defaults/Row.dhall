@@ -5,5 +5,7 @@ in
 , type = Row.PanelType.row
 , links = [] : List (../types/Link.dhall).Types
 , repeat = None Text
+, repeatDirection = None ../types/Direction.dhall
+, maxPerRow = None Natural
 , transparent = False
 }

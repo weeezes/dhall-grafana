@@ -1,8 +1,13 @@
+let boolFold = https://prelude.dhall-lang.org/Bool/fold
 let map = https://prelude.dhall-lang.org/List/map
 let concatSep = https://prelude.dhall-lang.org/Text/concatSep
 
 let Templating = (../types/TemplatingVariable.dhall).Types
 let VariableType = (../types/TemplatingVariable.dhall).VariableType 
+
+let hide =
+    \(hide : Bool)
+    -> boolFold hide Natural 2 0
 
 let queryValue =
     { allValue = None Text
@@ -29,8 +34,9 @@ let mkQuery =
     \(name : Text)
     -> \(query : Text)
     -> \(datasource : Text) 
+    -> \(_hide : Bool)
     -> Templating.QueryVariable
-        (queryValue // { name = name, query = query, datasource = datasource })
+        (queryValue // { name = name, query = query, datasource = datasource, hide = hide _hide })
 
 let intervalValue =
     { auto = None Bool
@@ -86,8 +92,9 @@ let  mkDatasource =
     \(name : Text)
     -> \(query : Text)
     -> \(regex : Text)
+    -> \(_hide : Bool)
     -> Templating.DatasourceVariable
-        (datasourceValue // ({ name = name, query = query, regex = regex }))
+        (datasourceValue // ({ name = name, query = query, regex = regex, hide = hide _hide }))
 
 let customValue =
     { allValue = None Text

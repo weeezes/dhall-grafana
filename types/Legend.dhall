@@ -5,4 +5,6 @@
 , current : Bool
 , total : Bool
 , avg : Bool
+, alignAsTable : Bool
+, rightSide : Bool
 } 

@@ -5,6 +5,8 @@ in
 { type = GraphPanel.PanelType.graph
 , links = [] : List (../types/Link.dhall).Types
 , repeat = None Text
+, repeatDirection = None ../types/Direction.dhall
+, maxPerRow = None Natural
 , transparent = False
 , datasource = "default"
 , targets = [] : List MetricTarget

@@ -5,4 +5,6 @@
 , current = False
 , total = False
 , avg = False
+, alignAsTable = False
+, rightSide = False
 }
