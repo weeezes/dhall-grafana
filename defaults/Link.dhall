@@ -1,15 +1,14 @@
 let Link = ../types/Link.dhall
-let LinkDashboards : Link.Dashboards =
+let LinkDashboards =
     { icon = "external link"
     , includeVars = False
     , keepTime = False
-    , tags = [ ] : List Text
     , targetBlank = True 
     , title = "Dashboards" 
     , type = Link.LinkType.dashboards
     , asDropdown =  True
     }
-let LinkExternal : Link.Link =
+let LinkExternal =
     { icon = "external link"
     , includeVars = False
     , keepTime = False
