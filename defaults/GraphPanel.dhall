@@ -3,6 +3,9 @@ let MetricTarget = (../types/MetricTarget.dhall).Type
 in
 
 { type = GraphPanel.PanelType.graph
+, links = [] : List (../types/Link.dhall).Types
+, repeat = None Text
+, transparent = False
 , datasource = "default"
 , targets = [] : List MetricTarget
 , options = {=} 

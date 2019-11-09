@@ -5,10 +5,12 @@ let Link = ../types/Link.dhall
 in
 
 { type = SinglestatPanel.PanelType.singlestat
+, links = [] : List Link.Types
+, repeat = None Text
+, transparent = False
 , timeFrom = None Text
 , timeShift = None Text
 , options = {=}
-, links = [] : List Link.Types
 , colorPostfix = None Bool
 , colorPrefix = None Bool
 , datasource = "Prometheus"

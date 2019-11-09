@@ -8,7 +8,6 @@ let SinglestatPanel =
     , timeFrom : Optional Text
     , timeShift : Optional Text
     , options : {}
-    , links : List (./Link.dhall).Types
     , maxDataPoints : Natural
     -- , interval : Optional Text
     -- , cacheTimeout : Optional Text

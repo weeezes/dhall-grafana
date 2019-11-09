@@ -35,8 +35,9 @@ let panels =
     , Panels.mkRow
         ( Grafana.Row::
             { id = 0
-            , title = "This is a row"
+            , title = "This is a row $Temperature"
             , gridPos = { x = 0, y = 4, w = 0, h = 0 }
+            , repeat = Some "Temperature"
             }
 
         )
