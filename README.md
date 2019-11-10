@@ -1,6 +1,6 @@
 # dhall-grafana
 
-Your dashboards-as-code with [Dhall](https://dhall-lang.org/)!
+Your [Grafana](http://www.grafana.org/) dashboards-as-code with [Dhall](https://dhall-lang.org/)!
 
 # Usage
 
