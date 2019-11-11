@@ -4,7 +4,7 @@ let TimePicker = ./TimePicker.dhall
 in
 
 { id = 0
-, uid = "xyz"
+, uid = None Text
 , title = "Title"
 , tags = [] : List Text
 , style = Dashboard.Style.dark

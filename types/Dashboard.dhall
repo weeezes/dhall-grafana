@@ -3,7 +3,7 @@ let TimeZone = < utc | browser >
 
 let Dashboard =
     { id: Natural
-    , uid: Text
+    , uid: Optional Text
     , title: Text
     , tags: List Text
     , style: Style

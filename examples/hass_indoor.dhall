@@ -132,7 +132,7 @@ let links =
 let dashboard : Grafana.Dashboard.Type =
     Grafana.Dashboard::
         { title = "Hass indoor air"
-        , uid = "hass-indoor-air"
+        , uid = Some "hass-indoor-air"
         , panels =
             (Grafana.Utils.generateIds panels)
         , editable = True
