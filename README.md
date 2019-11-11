@@ -18,7 +18,7 @@ Make sure you have a [TestData DB datasource](https://grafana.com/docs/features/
 
 # Getting started
 
-First confirm that your tooling works by walking through [Usage][#usage]. Open up a new file after you're done, and copy-paste in the following:
+First confirm that your tooling works by walking through [Usage](#usage). Open up a new file after you're done, and copy-paste in the following:
 
 ```
 let Grafana =
