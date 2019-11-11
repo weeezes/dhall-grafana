@@ -35,4 +35,5 @@
     { default = ./defaults/Row.dhall
     , Type = (./types/Row.dhall).Type
     }
+, Panels = ./types/Panels.dhall
 }
