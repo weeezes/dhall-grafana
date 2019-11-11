@@ -72,3 +72,5 @@ in  Grafana.Dashboard::{
 ```
 
 Whoo, that looks a lot more exciting! There's a few things going on here. We're adding the panels by passing them in to the Dashboards `panels` field. The panels have to have unique IDs, so we can use the `generateIds` utility and the `mkGraphPanel` helper to get exactly that. `mkGraphPanel` eats a `GraphPanel`, also defined with record completion. The end result is a list of `Panels`, and `Dashboard` happily accepts that type.
+
+Compile it, import it to Grafana, and let your eyes rest on that masterpiece!
