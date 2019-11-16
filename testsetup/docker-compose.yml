@@ -5,12 +5,12 @@ services:
     ports:
     - "3000:3000"
     volumes:
-    - .:/code
     - grafana-storage:/var/lib/grafana
-    - grafana-provisioning:/etc/grafana/provisioning/dashboards
     - ./dashboards:/dashboards
+    - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards
 volumes:
   grafana-storage: {}
   grafana-provisioning: {}
 
 # provisioning: https://github.com/grafana/grafana/pull/10052
+
