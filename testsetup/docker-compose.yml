@@ -6,8 +6,6 @@ services:
     - "3000:3000"
     volumes:
     - grafana-storage:/var/lib/grafana
-    - ./dashboards:/dashboards
-    - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards
 volumes:
   grafana-storage: {}
   grafana-provisioning: {}
