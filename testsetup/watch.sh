@@ -27,10 +27,17 @@ case "$OSTYPE" in
 	exit 1 ;;
 esac
 
-#| xargs -I{} /bin/bash -c '| grep NoOp | uniq' | xargs -I{} $reloader {}
-
 fswatch --batch-marker --event="Updated" $watch_file | while read num; do
-  if echo $num | grep -q NoOp; then
-    fswatch -1 --batch-marker $watch_file | grep NoOp | xargs -I{} $reloader {}
+  dashboard="$(jq -M -c '.' $watch_file)"
+  uid=$(echo $dashboard | jq -r '.uid')
+  payload=$(echo $dashboard | jq -r -c -M '{ "dashboard": ., "folderId": 0, "overwrite": true }')
+
+  echo "Updating..."
+  post_response=$(curl -s -XPOST -H "Content-Type: application/json" -H "Accept: application/json" -d "$payload" http://admin:admin@localhost:3000/api/dashboards/db)
+  response=$(curl -s -H "Content-Type: application/json" -H "Accept: application/json" http://admin:admin@localhost:3000/api/dashboards/uid/$uid)
+  result=$(echo $response | jq -r -c '.dashboard')
+
+  if [ -n "$result" ]; then
+    $reloader
   fi
 done
