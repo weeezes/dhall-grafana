@@ -38,8 +38,8 @@ fswatch --batch-marker --event="Updated" $watch_file | while read line; do
     payload=$(echo $dashboard | jq -r -c -M '{ "dashboard": ., "folderId": 0, "overwrite": true }')
 
     echo "Updating..."
-    post_response=$(curl -XPOST -H "Content-Type: application/json" -H "Accept: application/json" -d "$payload" http://admin:admin@localhost:3000/api/dashboards/db)
-    response=$(curl -H "Content-Type: application/json" -H "Accept: application/json" http://admin:admin@localhost:3000/api/dashboards/uid/$uid)
+    post_response=$(curl -s -XPOST -H "Content-Type: application/json" -H "Accept: application/json" -d "$payload" http://admin:admin@localhost:3000/api/dashboards/db)
+    response=$(curl -s -H "Content-Type: application/json" -H "Accept: application/json" http://admin:admin@localhost:3000/api/dashboards/uid/$uid)
     result=$(echo $response | jq -r -c '.dashboard')
 
     if [ -n "$result" ]; then
