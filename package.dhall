@@ -3,7 +3,7 @@
     { default = ./defaults/Dashboard.dhall
     , Type = (./types/Dashboard.dhall).Type
     }
-, SinglestatPanel = 
+, SinglestatPanel =
     { default = ./defaults/SinglestatPanel.dhall
     , Type = (./types/SinglestatPanel.dhall).Type
     }
@@ -14,6 +14,14 @@
 , GraphPanel =
     { default = ./defaults/GraphPanel.dhall
     , Type = (./types/GraphPanel.dhall).Type
+    }
+, PrometheusTarget =
+    { default = ./defaults/PrometheusTarget.dhall
+    , Type = (./types/PrometheusTarget.dhall).Type
+    }
+, TestDataDBTarget =
+    { default = ./defaults/TestDataDBTarget.dhall
+    , Type = (./types/TestDataDBTarget.dhall).Type
     }
 , Link =
     { default = (./types/Link.dhall).Types.Link

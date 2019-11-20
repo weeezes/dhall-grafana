@@ -4,6 +4,7 @@ let Panels = ./types/Panels.dhall
 let TextPanelMode = (./types/TextPanel.dhall).Mode
 
 let MetricTargets = (./types/MetricTargets.dhall).MetricTargets
+let ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
 let PrometheusTarget = ./types/PrometheusTarget.dhall
 let Variable = (./defaults/TemplatingVariable.dhall)
 
@@ -18,9 +19,9 @@ let panels =
             , datasource = "$" ++ datasourceName
             , targets =
                 [   MetricTargets.TestDataDBTarget
-                    { refId = "A"
-                    , scenarioId = "random_walk"
-                    }
+                        { refId = "A"
+                        , scenarioId = ScenarioId.random_walk
+                        }
                 ]
             }
         )
@@ -66,7 +67,7 @@ let panels =
             , targets =
                 [ MetricTargets.TestDataDBTarget
                     { refId = "A"
-                    , scenarioId = "random_walk"
+                    , scenarioId = ScenarioId.random_walk
                     }
                 ]
             }

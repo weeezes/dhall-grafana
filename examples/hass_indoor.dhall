@@ -34,17 +34,13 @@ let panels =
             , postfix = "°C"
             , targets =
                 [ MetricTargets.PrometheusTarget
-                    { refId = "A"
-                    , expr = 
-                        ''
-                        sum(hass_temperature_c{friendly_name="$temperatures"})
-                        ''
-                    , intervalFactor = 1
-                    , format = PrometheusTarget.FormatType.time_series
-                    , legendFormat = None Text
-                    , interval = None Natural
-                    , instant = False
-                    }
+                    Grafana.PrometheusTarget::
+                        { refId = "A"
+                        , expr =
+                            ''
+                            sum(hass_temperature_c{friendly_name="$temperatures"})
+                            ''
+                        }
                 ]
             }
         )
@@ -55,14 +51,10 @@ let panels =
             , legend = Grafana.Legend::{ rightSide = True }
             , targets =
                 [ MetricTargets.PrometheusTarget
-                    { refId = "A"
-                    , expr = "sum(hass_temperature_c{}) by (friendly_name)"
-                    , intervalFactor = 1
-                    , format = PrometheusTarget.FormatType.time_series
-                    , legendFormat = Some "{{ friendly_name }}"
-                    , interval = None Natural
-                    , instant = False
-                    }
+                    Grafana.PrometheusTarget::
+                        { refId = "A"
+                        , expr = "sum(hass_temperature_c{}) by (friendly_name)"
+                        }
                 ]
             , fill = 0
             , linewidth = 2
@@ -75,14 +67,10 @@ let panels =
             , legend = Grafana.Legend::{ rightSide = True }
             , targets =
                 [ MetricTargets.PrometheusTarget
-                    { refId = "A"
-                    , expr = "sum(hass_humidity_percent{}) by (friendly_name)"
-                    , intervalFactor = 1
-                    , format = PrometheusTarget.FormatType.time_series
-                    , legendFormat = Some "{{ friendly_name }}"
-                    , interval = None Natural
-                    , instant = False
-                    }
+                    Grafana.PrometheusTarget::
+                        { refId = "A"
+                        , expr = "sum(hass_humidity_percent{}) by (friendly_name)"
+                        }
                 ]
             , fill = 0
             , linewidth = 2
@@ -96,17 +84,13 @@ let panels =
             , gridPos = { x = 0, y = 19, w = 3, h = 3 }
             , targets =
                 [ MetricTargets.PrometheusTarget
-                    { refId = "A"
-                    , expr = 
-                        ''
-                        sum(hass_switch_state{friendly_name="$switches"}) by (friendly_name)
-                        ''
-                    , intervalFactor = 1
-                    , format = PrometheusTarget.FormatType.time_series
-                    , legendFormat = None Text
-                    , interval = None Natural
-                    , instant = False
-                    }
+                    Grafana.PrometheusTarget::
+                        { refId = "A"
+                        , expr =
+                            ''
+                            sum(hass_switch_state{friendly_name="$switches"}) by (friendly_name)
+                            ''
+                        }
                 ]
             , sparkline =
                 { show = True

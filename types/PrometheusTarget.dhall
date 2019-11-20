@@ -7,6 +7,7 @@ let PrometheusTarget =
     , legendFormat : Optional Text
     , interval : Optional Natural
     , instant : Bool
+    , scenarioId : Optional (./TestDataDBTarget.dhall).ScenarioId
     }
 
 in
