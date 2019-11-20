@@ -8,7 +8,3 @@ services:
     - grafana-storage:/var/lib/grafana
 volumes:
   grafana-storage: {}
-  grafana-provisioning: {}
-
-# provisioning: https://github.com/grafana/grafana/pull/10052
-
