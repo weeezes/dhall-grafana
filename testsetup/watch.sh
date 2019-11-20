@@ -7,6 +7,10 @@ if [ -z $watch_file ]; then
   exit 1
 fi
 
+# Pick the right reloading script, as they
+# seem to be very platform specific as long as
+# browsers don't support triggering a reload
+# from command line
 reloader=""
 case "$OSTYPE" in
   solaris*) 
