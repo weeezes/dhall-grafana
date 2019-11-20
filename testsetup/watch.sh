@@ -36,7 +36,7 @@ fswatch --batch-marker --event="Updated" $watch_file | while read line; do
     if [[ $watch_file == *.dhall ]]; then
       dashboard=$(dhall-to-json --file $watch_file | jq -M -c 'del(.id)')
     else
-    dashboard="$(jq -M -c 'del(.id)' $watch_file)"
+      dashboard="$(jq -M -c 'del(.id)' $watch_file)"
     fi
     uid=$(echo $dashboard | jq -r '.uid')
     payload=$(echo $dashboard | jq -r -c -M '{ "dashboard": ., "folderId": 0, "overwrite": true }')
