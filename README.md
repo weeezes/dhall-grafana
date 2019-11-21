@@ -22,7 +22,7 @@ First confirm that your tooling works by walking through [Usage](#usage). Open u
 
 ```
 let Grafana =
-        https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall sha256:1f8a334cae4ab44ed444ec553a24630e6505236062d7b0ca01f0a82e25b6a9a6
+        https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall sha256:af6de80932dfaf74e46b72707b1264213afa28771c1e2bb53698c079b3e3ac2f
       ? https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall
 
 in {=}
@@ -39,7 +39,7 @@ We have an empty object, it's something! Let's add in a dashboard:
 
 ```
 let Grafana =
-        https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall sha256:1f8a334cae4ab44ed444ec553a24630e6505236062d7b0ca01f0a82e25b6a9a6
+        https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall sha256:af6de80932dfaf74e46b72707b1264213afa28771c1e2bb53698c079b3e3ac2f
       ? https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall
 
 in Grafana.Dashboard::
@@ -55,7 +55,7 @@ Let's add in our first panel:
 
 ```
 let Grafana =
-        https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall sha256:1f8a334cae4ab44ed444ec553a24630e6505236062d7b0ca01f0a82e25b6a9a6
+        https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall sha256:af6de80932dfaf74e46b72707b1264213afa28771c1e2bb53698c079b3e3ac2f
       ? https://raw.githubusercontent.com/weeezes/dhall-grafana/master/package.dhall
 
 in  Grafana.Dashboard::{
