@@ -16,7 +16,7 @@ in
 , options = {=}
 , colorPostfix = None Bool
 , colorPrefix = None Bool
-, datasource = "Prometheus"
+, datasource = "default"
 , decimals = None Natural
 , targets = [] : List MetricTargets
 , maxDataPoints = 100
