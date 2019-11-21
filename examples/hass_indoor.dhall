@@ -2,9 +2,13 @@ let Grafana = ../package.dhall
 
 let Panels = ../types/Panels.dhall
 
+let ScenarioId = Grafana.ScenarioId
+
 let MetricTargets = (../types/MetricTargets.dhall).MetricTargets
 let PrometheusTarget = ../types/PrometheusTarget.dhall
 let Variable = (../defaults/TemplatingVariable.dhall)
+
+let test_dashboard : Optional ScenarioId = Some env:TEST_DASHBOARD ? None ScenarioId
 
 let templateVariables =
     [ Variable.mkDatasource
@@ -40,6 +44,7 @@ let panels =
                             ''
                             sum(hass_temperature_c{friendly_name="$temperatures"})
                             ''
+                        , scenarioId = test_dashboard
                         }
                 ]
             }
@@ -54,6 +59,7 @@ let panels =
                     Grafana.PrometheusTarget::
                         { refId = "A"
                         , expr = "sum(hass_temperature_c{}) by (friendly_name)"
+                        , scenarioId = test_dashboard
                         }
                 ]
             , fill = 0
@@ -70,6 +76,7 @@ let panels =
                     Grafana.PrometheusTarget::
                         { refId = "A"
                         , expr = "sum(hass_humidity_percent{}) by (friendly_name)"
+                        , scenarioId = test_dashboard
                         }
                 ]
             , fill = 0
@@ -90,6 +97,7 @@ let panels =
                             ''
                             sum(hass_switch_state{friendly_name="$switches"}) by (friendly_name)
                             ''
+                        , scenarioId = test_dashboard
                         }
                 ]
             , sparkline =
@@ -101,7 +109,6 @@ let panels =
             }
         )
     ]
-
 
 let links =
     [ Grafana.Link.Type.Link
