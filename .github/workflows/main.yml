@@ -24,3 +24,9 @@ jobs:
       run: |
         echo "Building all_dashboard.dhall"
         ./dhall-to-json --file all_dashboard.dhall
+    - name: Build examples/hass_indoor.dhall
+      env:
+        TEST_DASHBOARD: "(./package.dhall).ScenarioId.random_walk"
+      run: |
+        echo "Building examples/hass_indoor.dhall"
+        ./dhall-to-json --file examples/hass_indoor.dhall
