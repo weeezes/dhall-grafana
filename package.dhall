@@ -44,4 +44,5 @@
     , Type = (./types/Row.dhall).Type
     }
 , Panels = ./types/Panels.dhall
+, ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
 }
