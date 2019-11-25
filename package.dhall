@@ -43,6 +43,10 @@
     { default = ./defaults/Row.dhall
     , Type = (./types/Row.dhall).Type
     }
+, GridPos =
+    { default = ./defaults/GridPos.dhall
+    , Type = ./types/GridPos.dhall
+    }
 , Panels = ./types/Panels.dhall
 , MetricsTargets = ./types/MetricTargets.dhall
 , ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
