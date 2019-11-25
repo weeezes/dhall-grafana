@@ -1,5 +1,5 @@
 let SinglestatPanel = ../types/SinglestatPanel.dhall
-let MetricTargets = (../types/MetricTargets.dhall).MetricTargets
+let MetricTargets = ../types/MetricTargets.dhall
 let Link = ../types/Link.dhall
 
 in

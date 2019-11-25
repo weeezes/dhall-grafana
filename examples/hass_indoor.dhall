@@ -4,7 +4,7 @@ let Panels = ../types/Panels.dhall
 
 let ScenarioId = Grafana.ScenarioId
 
-let MetricTargets = (../types/MetricTargets.dhall).MetricTargets
+let MetricTargets = ../types/MetricTargets.dhall
 let PrometheusTarget = ../types/PrometheusTarget.dhall
 let Variable = (../defaults/TemplatingVariable.dhall)
 

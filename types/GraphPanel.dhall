@@ -1,4 +1,4 @@
-let MetricTargets = (./MetricTargets.dhall).MetricTargets
+let MetricTargets = ./MetricTargets.dhall
 
 let PanelType = < graph >
 let NullPointMode = < null | connected | `null as zero` >

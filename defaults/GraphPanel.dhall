@@ -1,5 +1,5 @@
 let GraphPanel = ../types/GraphPanel.dhall
-let MetricTargets = (../types/MetricTargets.dhall).MetricTargets
+let MetricTargets = ../types/MetricTargets.dhall
 in
 
 { type = GraphPanel.PanelType.graph
