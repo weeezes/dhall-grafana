@@ -19,7 +19,7 @@ let singlesWithSparkLine =
     , [ "irate(prometheus_tsdb_head_gc_duration_seconds_count{job=\"prometheus\"}[5m])" ]
     ]
 
-let graphPanels = 
+let graphPanels =
     [ [ "topk(5, max(scrape_duration_seconds) by (job))" ]
     , [ "sum(process_resident_memory_bytes{job=\"prometheus\"})"
     , "process_virtual_memory_bytes{job=\"prometheus\"}" ]
@@ -37,6 +37,11 @@ let graphPanels =
     , [ "rate(prometheus_rule_group_iterations_total{job=\"prometheus\"}[5m])" ]
     ]
 
+let IndexedChunk = { index : Natural, value : Natural }
+let IndexedPanels = { index : Natural, value : Natural -> Grafana.Panels.Panels }
+let ChunkSpec = { chunks : Natural, perChunk : Natural }
+let PartialGridPos = { y : Natural, w : Natural, h : Natural }
+
 let makePrometheusExpressions =
     \(expressions : List Text)
     -> map
@@ -51,13 +56,14 @@ let makePrometheusExpressions =
         (indexed Text expressions)
 
 let makeSingleWithSparkLine =
-    \(index : Natural)
+    \(chunk : IndexedChunk)
+    -> \(index : Natural)
     -> \(expr : List Text)
-    -> \(dim : { y : Natural, w : Natural })
+    -> \(dim : PartialGridPos)
     -> Grafana.Panels.mkSinglestatPanel
             Grafana.SinglestatPanel::
                 { title = "expr"
-                , gridPos = Grafana.GridPos::{ x = index*dim.w, y = dim.y, w = dim.w, h = 4 }
+                , gridPos = Grafana.GridPos::{ x = (subtract chunk.value index)*dim.w, y = dim.y, w = dim.w, h = dim.h }
                 , sparkline =
                     { show = True
                     , full = True
@@ -67,31 +73,27 @@ let makeSingleWithSparkLine =
                 , targets = makePrometheusExpressions expr
                 }
 
-let IndexedChunk = { index : Natural, value : Natural }
-let IndexedPanels = { index : Natural, value : Natural -> Grafana.Panels.Panels }
-
 let makeGraphPanel =
     \(chunk : IndexedChunk)
     -> \(index : Natural)
     -> \(expressions : List Text)
-    -> \(dim : { y : Natural, w : Natural })
+    -> \(dim : PartialGridPos)
     -> Grafana.Panels.mkGraphPanel
             Grafana.GraphPanel::
                 { title = "expr"
-                , gridPos = Grafana.GridPos::{ x = (subtract chunk.value index)*dim.w, y = dim.y, w = dim.w, h = 4 }
+                , gridPos = Grafana.GridPos::{ x = (subtract chunk.value index)*dim.w, y = dim.y, w = dim.w, h = dim.h }
                 , targets = makePrometheusExpressions expressions
                 }
 
-let panelChunks =
-    \(l : Natural)
-    -> \(n : Natural)
+let generateChunks =
+    \(chunkSpec : ChunkSpec)
     -> indexed
         Natural
-        (generate l Natural (\(x : Natural) -> x * n))
+        (generate chunkSpec.chunks Natural (\(x : Natural) -> x * chunkSpec.perChunk))
 
 let graphPanels =
     \(chunk : IndexedChunk)
-    -> \(dim : { y : Natural, w : Natural })
+    -> \(dim : PartialGridPos)
     -> map
         { index : Natural, value : List Text }
         (Natural -> Grafana.Panels.Panels)
@@ -100,15 +102,37 @@ let graphPanels =
         (indexed (List Text) graphPanels)
 
 let getPartition =
-    \(chunk : IndexedChunk)
-    -> (partition 
+    \(chunkSpec : ChunkSpec)
+    -> \(chunk : IndexedChunk)
+    -> \(dim : PartialGridPos)
+    -> \(panelGenerator : IndexedChunk -> PartialGridPos -> List (Natural -> Grafana.Panels.Panels))
+    -> (partition
         IndexedPanels
         (\(panel : IndexedPanels)
-            -> and [greaterThanEqual panel.index chunk.value, lessThan panel.index (chunk.value + 2)]
+            -> and [greaterThanEqual panel.index chunk.value, lessThan panel.index (chunk.value + chunkSpec.perChunk)]
         )
-        (indexed (Natural -> Grafana.Panels.Panels) (graphPanels chunk { y = 11 + chunk.value, w = 12 }))).true
+        (indexed (Natural -> Grafana.Panels.Panels) (panelGenerator chunk { y = dim.y + chunk.value, w = dim.w, h = dim.h }))).true
 
-in 
+let magic =
+    \(chunkSpec : ChunkSpec)
+    -> \(dim : PartialGridPos)
+    -> \(panelGenerator : IndexedChunk -> PartialGridPos -> List (Natural -> Grafana.Panels.Panels))
+    -> concat (Natural -> Grafana.Panels.Panels)
+        (map
+            IndexedChunk
+            (List (Natural -> Grafana.Panels.Panels))
+            (\(chunk : IndexedChunk) ->
+                map
+                    IndexedPanels
+                    (Natural -> Grafana.Panels.Panels)
+                    (\(panel : IndexedPanels)
+                        -> panel.value
+                    )
+                    (getPartition chunkSpec chunk dim panelGenerator)
+            )
+            (generateChunks chunkSpec)
+        )
+in
 
 Grafana.Dashboard::{
     , title = "Prometheus Stats"
@@ -119,29 +143,16 @@ Grafana.Dashboard::{
                 { index : Natural, value : List Text }
                 (Natural -> Grafana.Panels.Panels)
                 (\(expr : { index : Natural, value : List Text })
-                    -> makeSingleWithSparkLine expr.index expr.value { y = 0, w = 6 })
+                    -> makeSingleWithSparkLine { index = 0, value = 0 } expr.index expr.value { y = 0, w = 6, h = 4 })
                 (indexed (List Text) singlesWithSparkLine)
             , map
                 { index : Natural, value : List Text }
                 (Natural -> Grafana.Panels.Panels)
                 (\(expr : { index : Natural, value : List Text })
-                    -> makeSingleWithSparkLine expr.index expr.value { y = 5, w = 6 })
+                    -> makeSingleWithSparkLine { index = 0, value = 0 } expr.index expr.value { y = 5, w = 6, h = 4 })
                 (indexed (List Text) singlesWithSparkLine)
-            , concat (Natural -> Grafana.Panels.Panels)
-                (map
-                    IndexedChunk
-                    (List (Natural -> Grafana.Panels.Panels))
-                    (\(chunk : IndexedChunk) -> 
-                        map 
-                            IndexedPanels
-                            (Natural -> Grafana.Panels.Panels)
-                            (\(panel : IndexedPanels)
-                                -> panel.value
-                            )
-                            (getPartition chunk)
-                    )
-                    (panelChunks 6 2)
-                )
+            , magic { chunks = 6, perChunk = 4 } { y = 11, w = 6, h = 4 } graphPanels
+            , magic { chunks = 6, perChunk = 2 } { y = 40, w = 12, h = 4 } graphPanels
             ]
         )
     , uid = Some "prometheus-stats"
