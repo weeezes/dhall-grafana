@@ -14,9 +14,9 @@ jobs:
       with:
         repository: dhall-lang/dhall-haskell
         tag: '1.27.0'
-        file: dhall-json-1.5.0-x86_64-linux.tar.bz2
+        file: dhall-json-1.7.3-x86_64-linux.tar.bz2
     - name: Extract dhall-to-json
-      run: tar xvf dhall-json-1.5.0-x86_64-linux.tar.bz2 && mv bin/dhall-to-json .
+      run: tar xvf dhall-json-1.7.3-x86_64-linux.tar.bz2 && mv bin/dhall-to-json .
     - name: Build examples/all_dashboard.dhall
       run: |
         echo "Building all_dashboard.dhall"
