@@ -17,10 +17,10 @@ jobs:
         file: dhall-json-1.5.0-x86_64-linux.tar.bz2
     - name: Extract dhall-to-json
       run: tar xvf dhall-json-1.5.0-x86_64-linux.tar.bz2 && mv bin/dhall-to-json .
-    - name: Build all_dashboard.dhall
+    - name: Build examples/all_dashboard.dhall
       run: |
         echo "Building all_dashboard.dhall"
-        ./dhall-to-json --file all_dashboard.dhall
+        ./dhall-to-json --file examples/all_dashboard.dhall
     - name: Build examples/hass_indoor.dhall
       env:
         TEST_DASHBOARD: "(./package.dhall).ScenarioId.random_walk"
