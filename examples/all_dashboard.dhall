@@ -1,12 +1,12 @@
-let Grafana = ./package.dhall
+let Grafana = ../package.dhall
 
-let Panels = ./types/Panels.dhall
-let TextPanelMode = (./types/TextPanel.dhall).Mode
+let Panels = ../types/Panels.dhall
+let TextPanelMode = (../types/TextPanel.dhall).Mode
 
-let MetricTargets = ./types/MetricTargets.dhall
+let MetricTargets = ../types/MetricTargets.dhall
 let ScenarioId = Grafana.ScenarioId
-let PrometheusTarget = ./types/PrometheusTarget.dhall
-let Variable = (./defaults/TemplatingVariable.dhall)
+let PrometheusTarget = ../types/PrometheusTarget.dhall
+let Variable = (../defaults/TemplatingVariable.dhall)
 
 let datasourceName = "Datasource"
 
