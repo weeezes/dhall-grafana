@@ -1,9 +1,10 @@
-let boolFold = https://prelude.dhall-lang.org/Bool/fold
-let map = https://prelude.dhall-lang.org/List/map
-let concatSep = https://prelude.dhall-lang.org/Text/concatSep
+let Prelude = https://prelude.dhall-lang.org/v19.0.0/package.dhall sha256:eb693342eb769f782174157eba9b5924cf8ac6793897fc36a31ccbd6f56dafe2
+let boolFold = Prelude.Bool.fold
+let map = Prelude.List.map
+let concatSep = Prelude.Text.concatSep
 
 let Templating = (../types/TemplatingVariable.dhall).Types
-let VariableType = (../types/TemplatingVariable.dhall).VariableType 
+let VariableType = (../types/TemplatingVariable.dhall).VariableType
 
 let hide =
     \(hide : Bool)
@@ -33,14 +34,14 @@ let QueryVariable = Templating.QueryVariable queryValue
 let mkQuery =
     \(name : Text)
     -> \(query : Text)
-    -> \(datasource : Text) 
+    -> \(datasource : Text)
     -> \(_hide : Bool)
     -> Templating.QueryVariable
         (queryValue // { name = name, query = query, datasource = datasource, hide = hide _hide })
 
 let intervalValue =
     { auto = None Bool
-    , auto_count = None Natural 
+    , auto_count = None Natural
     , auto_min = None Text
     , current = None { text : Text, value : Text }
     , hide = 0
@@ -63,7 +64,7 @@ let mkInterval =
     \(name : Text)
     -> \(options : List Text)
     -> \(_hide : Bool)
-    ->  let opt = 
+    ->  let opt =
             map
                 Text
                 { selected : Bool, text : Text, value : Text }
@@ -123,7 +124,7 @@ let mkCustom =
     \(name : Text)
     -> \(options : List Text)
     -> \(_hide : Bool)
-    ->  let opt = 
+    ->  let opt =
             map
                 Text
                 { selected : Bool, text : Text, value : Text }
@@ -182,7 +183,7 @@ let adHocValue =
     , skipUrlSync = False
     , type = VariableType.adhoc
     , datasource = "Prometheus"
-    , filters = 
+    , filters =
         [   { key = "friendly_name"
             , operator = "="
             , value = "masti"
