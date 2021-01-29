@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 watch_file=$1
 
@@ -13,20 +13,20 @@ fi
 # from command line
 reloader=""
 case "$OSTYPE" in
-  solaris*) 
+  solaris*)
 	echo "Not supported: $OSTYPE"
 	exit 1 ;;
-  darwin*)  
+  darwin*)
 	echo "Not supported: $OSTYPE"
 	exit 1 ;;
   linux*)   reloader="./reload-linux.sh" ;;
-  bsd*)     
+  bsd*)
 	echo "Not supported: $OSTYPE"
 	exit 1 ;;
-  msys*)    
+  msys*)
 	echo "Not supported: $OSTYPE"
 	exit 1 ;;
-  *)    
+  *)
 	echo "Not supported: $OSTYPE"
 	exit 1 ;;
 esac

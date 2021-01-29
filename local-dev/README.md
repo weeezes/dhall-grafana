@@ -1,13 +1,9 @@
 # Local development
 
-## Requirements
+# Usage
 
-Linux:
-* bash
-* [fswatch](https://github.com/emcrisostomo/fswatch#installation)
-* [xdotool](https://github.com/jordansissel/xdotool)
-* [dhall-to-json](https://github.com/dhall-lang/dhall-haskell/releases)
-* [jq](https://github.com/stedolan/jq)
-* [Docker](https://www.docker.com/)
-* [docker-compose](https://docs.docker.com/compose/)
-* curl
+Run `nix-shell` in the [`local-dev`](./local-dev) directory. After the shell has started run `run-grafana-server` to start Grafana, and `./watch.sh <path-to-your-dhall-dashboard>` to start the live reloads.
+
+# Requirements
+
+All requirements are handled by nix, check [`./shell.nix`](./shell.nix) for full list.
