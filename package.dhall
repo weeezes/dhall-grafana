@@ -50,4 +50,9 @@
 , Panels = ./types/Panels.dhall
 , MetricsTargets = ./types/MetricTargets.dhall
 , ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
+, Alert =
+    { default = (./defaults/Alert.dhall)
+    , Type = (./types/Alert.dhall).Type
+    }
+, Alerts = ./types/Alert.dhall
 }

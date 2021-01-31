@@ -1,4 +1,4 @@
-{ id : Natural 
+{ id : Natural
 , title : Text
 , gridPos : ./GridPos.dhall
 , links : List (./Link.dhall).Types
@@ -6,4 +6,5 @@
 , repeat : Optional Text
 , repeatDirection : Optional ./Direction.dhall
 , maxPerRow : Optional Natural
+, alert : Optional (./Alert.dhall).Type
 }

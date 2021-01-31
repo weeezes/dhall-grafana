@@ -16,7 +16,7 @@ let panels =
             { title = "Singlestat panel"
             , gridPos = { x = 0, y = 0, w = 24, h = 3 }
             , colorBackground = True
-            , datasource = "$" ++ datasourceName
+            , datasource = Some ("$" ++ datasourceName)
             , targets =
                 [   MetricTargets.TestDataDBTarget
                         { refId = "A"
@@ -63,7 +63,7 @@ let panels =
         ( Grafana.GraphPanel::
             { title = "Temperature"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
-            , datasource = "$" ++ datasourceName
+            , datasource = Some ("$" ++ datasourceName)
             , targets =
                 [ MetricTargets.TestDataDBTarget
                     { refId = "A"

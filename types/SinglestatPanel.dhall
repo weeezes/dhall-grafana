@@ -3,7 +3,7 @@ let NullPointMode = < null | connected | `null as zero` >
 let SinglestatPanel =
     ./BasePanel.dhall //\\
     { type : PanelType
-    , datasource : Text
+    , datasource : Optional Text
     , targets : List ./MetricTargets.dhall
     , timeFrom : Optional Text
     , timeShift : Optional Text
@@ -12,8 +12,8 @@ let SinglestatPanel =
     -- , interval : Optional Text
     -- , cacheTimeout : Optional Text
     , format : Text
-    , prefix : Text 
-    , postfix : Text 
+    , prefix : Text
+    , postfix : Text
     , nullText : Optional Text
     , valueMaps : List { value : Text, op : Text, text : Text }
     , mappingTypes : List { name : Text, value : Natural }
@@ -28,7 +28,7 @@ let SinglestatPanel =
     , colorBackground : Bool
     , colorValue : Bool
     , colors : List Text
-    , sparkline : 
+    , sparkline :
         { show : Bool
         , full : Bool
         , lineColor : Text
@@ -36,13 +36,13 @@ let SinglestatPanel =
         }
     , gauge :
         { show : Bool
-        , minValue : Natural 
+        , minValue : Natural
         , maxValue : Natural
         , thresholdMarkers : Bool
         , thresholdLabels : Bool
         }
     , tableColumn : Text
-    , decimals : Optional Natural 
+    , decimals : Optional Natural
     , colorPrefix : Optional Bool
     , colorPostfix : Optional Bool
     }
