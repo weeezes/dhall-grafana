@@ -11,6 +11,7 @@
     { default = ./defaults/TextPanel.dhall
     , Type = (./types/TextPanel.dhall).Type
     }
+, TextPanels = (./types/TextPanel.dhall)
 , GraphPanel =
     { default = ./defaults/GraphPanel.dhall
     , Type = (./types/GraphPanel.dhall).Type
@@ -50,6 +51,8 @@
 , Panels = ./types/Panels.dhall
 , MetricsTargets = ./types/MetricTargets.dhall
 , ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
+, TemplatingVariable = ./types/TemplatingVariable.dhall
+, TemplatingVariableUtils = ./defaults/TemplatingVariable.dhall
 , Alert =
     { default = (./defaults/Alert.dhall)
     , Type = (./types/Alert.dhall).Type

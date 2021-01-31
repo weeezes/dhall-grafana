@@ -27,3 +27,9 @@ jobs:
       run: |
         echo "Building examples/hass_indoor.dhall"
         ./dhall-to-json --file examples/hass_indoor.dhall
+    - name: Build examples/consul_exporter.dhall
+      env:
+        TEST_DASHBOARD: "(./package.dhall).ScenarioId.random_walk"
+      run: |
+        echo "Building examples/consul_exporter.dhall"
+        ./dhall-to-json --file examples/consul_exporter.dhall

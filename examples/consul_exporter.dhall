@@ -2,12 +2,10 @@ let Grafana = ../package.dhall
 
 let ScenarioId = Grafana.ScenarioId
 
-let Variable = (../defaults/TemplatingVariable.dhall)
-
 let test_dashboard : Optional ScenarioId = Some env:TEST_DASHBOARD ? None ScenarioId
 
 let templateVariables =
-    [ Variable.mkDatasource
+    [ Grafana.TemplatingVariableUtils.mkDatasource
         "Datasource"
         "prometheus"
         ""
