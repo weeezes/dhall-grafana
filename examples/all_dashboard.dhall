@@ -1,31 +1,25 @@
 let Grafana = ../package.dhall
 
-let Panels = ../types/Panels.dhall
-let TextPanelMode = (../types/TextPanel.dhall).Mode
-
-let MetricTargets = ../types/MetricTargets.dhall
 let ScenarioId = Grafana.ScenarioId
-let PrometheusTarget = ../types/PrometheusTarget.dhall
-let Variable = (../defaults/TemplatingVariable.dhall)
 
 let datasourceName = "Datasource"
 
 let panels =
-    [ Panels.mkSinglestatPanel
+    [ Grafana.Panels.mkSinglestatPanel
         ( Grafana.SinglestatPanel::
             { title = "Singlestat panel"
             , gridPos = { x = 0, y = 0, w = 24, h = 3 }
             , colorBackground = True
             , datasource = Some ("$" ++ datasourceName)
             , targets =
-                [   MetricTargets.TestDataDBTarget
-                        { refId = "A"
-                        , scenarioId = ScenarioId.random_walk
-                        }
+                [ Grafana.MetricsTargets.TestDataDBTarget
+                      { refId = "A"
+                      , scenarioId = ScenarioId.random_walk
+                      }
                 ]
             }
         )
-    , Panels.mkRow
+    , Grafana.Panels.mkRow
         ( Grafana.Row::
             { title = "This is the $Custom row"
             , gridPos = { x = 0, y = 4, w = 0, h = 0 }
@@ -33,7 +27,7 @@ let panels =
             }
 
         )
-    , Panels.mkTextPanel
+    , Grafana.Panels.mkTextPanel
         ( Grafana.TextPanel::
             { title = "Markdown panel"
             , gridPos = { x = 0, y = 5, w = 12, h = 6 }
@@ -43,10 +37,10 @@ let panels =
 
                 $Custom
                 ''
-            , mode = TextPanelMode.markdown
+            , mode = Grafana.TextPanels.Mode.markdown
             }
         )
-    , Panels.mkTextPanel
+    , Grafana.Panels.mkTextPanel
         ( Grafana.TextPanel::
             { title = "Html panel"
             , gridPos = { x = 12, y = 5, w = 12, h = 6 }
@@ -56,16 +50,16 @@ let panels =
                 <br>
                 $Custom
                 ''
-            , mode = TextPanelMode.html
+            , mode = Grafana.TextPanels.Mode.html
             }
         )
-    , Panels.mkGraphPanel
+    , Grafana.Panels.mkGraphPanel
         ( Grafana.GraphPanel::
             { title = "Temperature"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , datasource = Some ("$" ++ datasourceName)
             , targets =
-                [ MetricTargets.TestDataDBTarget
+                [ Grafana.MetricsTargets.TestDataDBTarget
                     { refId = "A"
                     , scenarioId = ScenarioId.random_walk
                     }
@@ -75,7 +69,7 @@ let panels =
     ]
 
 let templateVariables =
-    [ Variable.mkInterval
+    [ Grafana.TemplatingVariableUtils.mkInterval
         "Interval"
         ["5s", "10s", "15s", "20s", "25s"]
         False
@@ -84,26 +78,26 @@ let templateVariables =
         "label_values(hass_temperature_c, entity)"
         "Prometheus"
         False -}
-    , Variable.mkDatasource
+    , Grafana.TemplatingVariableUtils.mkDatasource
         datasourceName
         "testdata"
         ""
         False
-    , Variable.mkCustom
+    , Grafana.TemplatingVariableUtils.mkCustom
         "Custom"
         ["1st", "2nd", "3rd"]
         False
-    , Variable.mkConstant
+    , Grafana.TemplatingVariableUtils.mkConstant
         "Constant"
         "foobarbaz"
         False
-    , Variable.mkTextbox
+    , Grafana.TemplatingVariableUtils.mkTextbox
         "Textbox"
         ''
         some textbox value
         ''
         False
-    , Variable.mkAdHoc
+    , Grafana.TemplatingVariableUtils.mkAdHoc
         "Adhoc"
         ([] : List { key : Text, operator : Text, value : Text })
         False

@@ -1,27 +1,21 @@
 let Grafana = ../package.dhall
 
-let Panels = ../types/Panels.dhall
-
 let ScenarioId = Grafana.ScenarioId
-
-let MetricTargets = ../types/MetricTargets.dhall
-let PrometheusTarget = ../types/PrometheusTarget.dhall
-let Variable = (../defaults/TemplatingVariable.dhall)
 
 let test_dashboard : Optional ScenarioId = Some env:TEST_DASHBOARD ? None ScenarioId
 
 let templateVariables =
-    [ Variable.mkDatasource
+    [ Grafana.TemplatingVariableUtils.mkDatasource
         "Datasource"
         "prometheus"
         ""
         False
-    , Variable.mkQuery
+    , Grafana.TemplatingVariableUtils.mkQuery
         "temperatures"
         "label_values(hass_temperature_c, friendly_name)"
         "$Datasource"
         True
-    , Variable.mkQuery
+    , Grafana.TemplatingVariableUtils.mkQuery
         "switches"
         "label_values(hass_switch_state, friendly_name)"
         "$Datasource"
@@ -29,7 +23,7 @@ let templateVariables =
     ]
 
 let panels =
-    [ Panels.mkSinglestatPanel
+    [ Grafana.Panels.mkSinglestatPanel
         ( Grafana.SinglestatPanel::
             { title = "$temperatures"
             , repeat = Some "temperatures"
@@ -37,7 +31,7 @@ let panels =
             , gridPos = { x = 0, y = 0, w = 3, h = 3 }
             , postfix = "°C"
             , targets =
-                [ MetricTargets.PrometheusTarget
+                [ Grafana.MetricsTargets.PrometheusTarget
                     Grafana.PrometheusTarget::
                         { refId = "A"
                         , expr =
@@ -49,13 +43,13 @@ let panels =
                 ]
             }
         )
-    , Panels.mkGraphPanel
+    , Grafana.Panels.mkGraphPanel
         ( Grafana.GraphPanel::
             { title = "Temperature"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , legend = Grafana.Legend::{ rightSide = True }
             , targets =
-                [ MetricTargets.PrometheusTarget
+                [ Grafana.MetricsTargets.PrometheusTarget
                     Grafana.PrometheusTarget::
                         { refId = "A"
                         , expr = "sum(hass_temperature_c{}) by (friendly_name)"
@@ -66,13 +60,13 @@ let panels =
             , linewidth = 2
             }
         )
-    , Panels.mkGraphPanel
+    , Grafana.Panels.mkGraphPanel
         ( Grafana.GraphPanel::
             { title = "Humidity"
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , legend = Grafana.Legend::{ rightSide = True }
             , targets =
-                [ MetricTargets.PrometheusTarget
+                [ Grafana.MetricsTargets.PrometheusTarget
                     Grafana.PrometheusTarget::
                         { refId = "A"
                         , expr = "sum(hass_humidity_percent{}) by (friendly_name)"
@@ -83,14 +77,14 @@ let panels =
             , linewidth = 2
             }
         )
-    , Panels.mkSinglestatPanel
+    , Grafana.Panels.mkSinglestatPanel
         ( Grafana.SinglestatPanel::
             { repeat = Some "switches"
             , maxPerRow = Some 12
             , title = "$switches"
             , gridPos = { x = 0, y = 19, w = 3, h = 3 }
             , targets =
-                [ MetricTargets.PrometheusTarget
+                [ Grafana.MetricsTargets.PrometheusTarget
                     Grafana.PrometheusTarget::
                         { refId = "A"
                         , expr =
