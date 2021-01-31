@@ -3,23 +3,24 @@ let MetricTargets = ../types/MetricTargets.dhall
 in
 
 { type = GraphPanel.PanelType.graph
+, alert = None (../types/Alert.dhall).Type
 , id = 0
 , links = [] : List (../types/Link.dhall).Types
 , repeat = None Text
 , repeatDirection = None ../types/Direction.dhall
 , maxPerRow = None Natural
 , transparent = False
-, datasource = "default"
+, datasource = None Text
 , targets = [] : List MetricTargets
-, options = {=} 
-, renderer = "flot" 
+, options = {=}
+, renderer = "flot"
 , yaxes =
     [ ./YAxis.dhall
     , ./YAxis.dhall
     ]
 , xaxis = ./XAxis.dhall
 , yaxis = { align = False, alignLevel = None Natural }
-, lines = True 
+, lines = True
 , fill = 1
 , linewidth = 1
 , dashes = False
@@ -28,20 +29,20 @@ in
 , points = False
 , pointradius = 2
 , bars = False
-, stack = False 
+, stack = False
 , percentage = False
 , legend = ./Legend.dhall
 , nullPointMode = GraphPanel.NullPointMode.null
 , steppedLine = False
-, tooltip = 
+, tooltip =
     { value_type = GraphPanel.TooltipStackType.individual
     , shared = True
     , sort = 0
     }
-, timeFrom = None Text 
+, timeFrom = None Text
 , timeShift = None Text
 , hideTimeOverride = False
-, aliasColors = {=} 
+, aliasColors = {=}
 , seriesOverrides = [] : List { alias : Text }
 , thresholds = [] : List (../types/Threshold.dhall).Type
 , timeRegions = [] : List (../types/TimeRegion.dhall).Type

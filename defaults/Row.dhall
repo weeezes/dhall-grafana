@@ -2,6 +2,7 @@ let Row = ../types/Row.dhall
 in
 
 { type = Row.PanelType.row
+, alert = None (../types/Alert.dhall).Type
 , id = 0
 , collapsed = False
 , links = [] : List (../types/Link.dhall).Types

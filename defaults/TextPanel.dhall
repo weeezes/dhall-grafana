@@ -2,6 +2,7 @@ let TextPanel = ../types/TextPanel.dhall
 in
 
 { id = 0
+, alert = None (../types/Alert.dhall).Type
 , content = "# Default"
 , mode = TextPanel.Mode.markdown
 , type = TextPanel.PanelType.text

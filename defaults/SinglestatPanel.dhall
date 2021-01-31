@@ -5,6 +5,7 @@ let Link = ../types/Link.dhall
 in
 
 { type = SinglestatPanel.PanelType.singlestat
+, alert = None (../types/Alert.dhall).Type
 , id = 0
 , links = [] : List Link.Types
 , repeat = None Text
@@ -16,7 +17,7 @@ in
 , options = {=}
 , colorPostfix = None Bool
 , colorPrefix = None Bool
-, datasource = "default"
+, datasource = None Text
 , decimals = None Natural
 , targets = [] : List MetricTargets
 , maxDataPoints = 100
@@ -24,13 +25,13 @@ in
 , prefix = ""
 , postfix = ""
 , nullText = None Text
-, valueMaps = 
+, valueMaps =
     [   { value = "null"
         , op = "="
         , text = "N/A"
         }
     ]
-, mappingTypes = 
+, mappingTypes =
     [   { name = "value to text"
         , value = 1
         }
@@ -53,18 +54,18 @@ in
 , thresholds = ""
 , colorBackground = False
 , colorValue = False
-, colors = 
+, colors =
     [ "#299c46"
     , "rgba(237, 129, 40, 0.89)"
     , "#d44a3a"
     ]
-, sparkline = 
+, sparkline =
     { show = False
     , full = False
     , lineColor = "rgb(31, 120, 193)"
     , fillColor = "rgba(31, 118, 189, 0.18)"
     }
-, gauge = 
+, gauge =
     { show = False
     , minValue = 0
     , maxValue = 100
