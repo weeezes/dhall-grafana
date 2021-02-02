@@ -7,4 +7,5 @@
 , repeatDirection : Optional ./Direction.dhall
 , maxPerRow : Optional Natural
 , alert : Optional (./Alert.dhall).Type
+, transformations : List (./Transformations.dhall).Types
 }

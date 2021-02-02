@@ -1,3 +1,6 @@
+let Prelude =
+      https://prelude.dhall-lang.org/v19.0.0/package.dhall sha256:eb693342eb769f782174157eba9b5924cf8ac6793897fc36a31ccbd6f56dafe2
+
 let Grafana = ../package.dhall
 
 let ScenarioId = Grafana.ScenarioId
@@ -60,30 +63,39 @@ let panels =
             , linewidth = 2
             }
         )
-    , Grafana.Panels.mkGraphPanel
-        ( Grafana.GraphPanel::
+    , Grafana.Panels.mkTablePanel
+        ( Grafana.TablePanel::
             { title = "Unhealthy Nodes"
             , gridPos = { x = 0, y = 6, w = 12, h = 6 }
-            , legend = Grafana.Legend::{ rightSide = True }
             , targets =
                 [ Grafana.MetricsTargets.PrometheusTarget
                     Grafana.PrometheusTarget::
                         { refId = "A"
-                        , expr = "consul_health_node_status{status!='passing'}"
+                        , expr = "sum(consul_health_node_status{status='passing'} > 0) by (node, instance, status)"
                         , scenarioId = test_dashboard
                         , legendFormat = Some "{{ node }} - {{ status }}"
+                        , instant = True
+                        , format = Grafana.PrometheusTargetFormat.table
                         }
                 ]
-            , fill = 0
-            , linewidth = 2
-            , alert = Some (Grafana.Alerts.mkSimpleAlert
-                "Unhealthy nodes"
-                (None Text)
-                0
-                (None Grafana.Alerts.ConditionEvaluator)
-                (None Grafana.Alerts.ExecutionErrorState)
-                (Some Grafana.Alerts.NoDataState.alerting)
-                )
+            , transformations =
+                [ Grafana.Transformations.Type.Organize
+                    ( Grafana.TransformationOrganize::
+                        { options =
+                            { excludeByName =
+                                [ { mapKey = "Time", mapValue = True }
+                                , { mapKey = "Value", mapValue = True }
+                                ]
+                            , indexByName =
+                                [ { mapKey = "node", mapValue = 1 }
+                                , { mapKey = "status", mapValue = 3 }
+                                , { mapKey = "instance", mapValue = 2 }
+                                ]
+                            , renameByName = Prelude.Map.empty Text Text
+                            }
+                        }
+                    )
+                ]
             }
         )
 

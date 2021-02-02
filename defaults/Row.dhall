@@ -10,4 +10,5 @@ in
 , repeatDirection = None ../types/Direction.dhall
 , maxPerRow = None Natural
 , transparent = False
+, transformations = [] : List (../types/Transformations.dhall).Types
 }
