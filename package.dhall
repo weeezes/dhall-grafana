@@ -16,6 +16,10 @@
     { default = ./defaults/GraphPanel.dhall
     , Type = (./types/GraphPanel.dhall).Type
     }
+, TablePanel =
+    { default = ./defaults/TablePanel.dhall
+    , Type = (./types/TablePanel.dhall).Type
+    }
 , PrometheusTarget =
     { default = ./defaults/PrometheusTarget.dhall
     , Type = (./types/PrometheusTarget.dhall).Type
@@ -48,11 +52,20 @@
     { default = ./defaults/GridPos.dhall
     , Type = ./types/GridPos.dhall
     }
+, Transformations =
+    { default = (./types/Transformations.dhall).Types.Organize
+    , Type = (./types/Transformations.dhall).Types
+    }
+, TransformationOrganize =
+    { default = (./defaults/Transformations.dhall).Organize
+    , Type = (./types/Transformations.dhall).Organize
+    }
 , Panels = ./types/Panels.dhall
 , MetricsTargets = ./types/MetricTargets.dhall
 , ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
 , TemplatingVariable = ./types/TemplatingVariable.dhall
 , TemplatingVariableUtils = ./defaults/TemplatingVariable.dhall
+, PrometheusTargetFormat = (./types/PrometheusTarget.dhall).FormatType
 , Alert =
     { default = (./defaults/Alert.dhall)
     , Type = (./types/Alert.dhall).Type

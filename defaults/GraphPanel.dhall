@@ -46,4 +46,5 @@ in
 , seriesOverrides = [] : List { alias : Text }
 , thresholds = [] : List (../types/Threshold.dhall).Type
 , timeRegions = [] : List (../types/TimeRegion.dhall).Type
+, transformations = [] : List (../types/Transformations.dhall).Types
 }
