@@ -16,11 +16,11 @@ let templateVariables =
     ]
 
 let panels =
-    [ Grafana.Panels.mkGraphPanel
-        ( Grafana.GraphPanel::
+    [ Grafana.Panels.mkStatPanel
+
+        ( Grafana.StatPanel::
             { title = "Total Services"
             , gridPos = { x = 0, y = 0, w = 6, h = 6 }
-            , legend = Grafana.Legend::{ show = False }
             , targets =
                 [ Grafana.MetricsTargets.PrometheusTarget
                     Grafana.PrometheusTarget::
@@ -29,8 +29,14 @@ let panels =
                         , scenarioId = test_dashboard
                         }
                 ]
-            , fill = 0
-            , linewidth = 2
+            , fieldConfig = Some Grafana.FieldConfig::
+                { defaults = Grafana.FieldConfigs.mkDefaults
+                    { fixedColor = "light-purple", mode = Grafana.FieldConfigs.ColorMode.fixed }
+                    "green"
+                    Grafana.FieldConfigs.ColorMode.absolute
+                    ([] : List ({ color : Text, value : Double }))
+
+                }
             }
         )
     , Grafana.Panels.mkGraphPanel
@@ -99,22 +105,26 @@ let panels =
             }
         )
 
-    , Grafana.Panels.mkGraphPanel
-        ( Grafana.GraphPanel::
+    , Grafana.Panels.mkStatPanel
+        ( Grafana.StatPanel::
             { title = "Unhealthy Services"
             , gridPos = { x = 12, y = 0, w = 12, h = 12 }
-            , legend = Grafana.Legend::{ rightSide = True }
             , targets =
                 [ Grafana.MetricsTargets.PrometheusTarget
                     Grafana.PrometheusTarget::
                         { refId = "A"
-                        , expr = "sum by (service_name, status) (consul_health_service_status{status!=\"passing\"})"
+                        , expr = "sum (consul_health_service_status{status!=\"passing\"})"
                         , scenarioId = test_dashboard
                         , legendFormat = Some "{{ service_name }} - {{ status }}"
                         }
                 ]
-            , fill = 0
-            , linewidth = 2
+            , fieldConfig = Some Grafana.FieldConfig::
+                { defaults = Grafana.FieldConfigs.mkDefaults
+                    { fixedColor = "green", mode = Grafana.FieldConfigs.ColorMode.thresholds }
+                    "green"
+                    Grafana.FieldConfigs.ColorMode.absolute
+                    ([ { color = "red", value = 1.0 }] : List ({ color : Text, value : Double }))
+                }
             , alert = Some (Grafana.Alerts.mkSimpleAlert
                 "Unhealthy Services"
                 (None Text)

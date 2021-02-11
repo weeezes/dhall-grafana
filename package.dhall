@@ -7,6 +7,11 @@
     { default = ./defaults/SinglestatPanel.dhall
     , Type = (./types/SinglestatPanel.dhall).Type
     }
+, StatPanel =
+    { default = (./defaults/StatPanel.dhall).StatPanel
+    , Type = (./types/StatPanel.dhall).Type
+    }
+, StatPanels = ./types/StatPanel.dhall
 , TextPanel =
     { default = ./defaults/TextPanel.dhall
     , Type = (./types/TextPanel.dhall).Type
@@ -71,4 +76,9 @@
     , Type = (./types/Alert.dhall).Type
     }
 , Alerts = ./types/Alert.dhall
+, FieldConfig =
+    { default = (./defaults/FieldConfig.dhall).NullFieldConfig
+    , Type = (./types/FieldConfig.dhall).Type
+    }
+, FieldConfigs = ./types/FieldConfig.dhall
 }
