@@ -47,4 +47,5 @@ in
 , thresholds = [] : List (../types/Threshold.dhall).Type
 , timeRegions = [] : List (../types/TimeRegion.dhall).Type
 , transformations = [] : List (../types/Transformations.dhall).Types
+, fieldConfig = None (../types/FieldConfig.dhall).Type
 }

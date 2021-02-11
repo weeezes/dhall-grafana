@@ -8,4 +8,5 @@
 , maxPerRow : Optional Natural
 , alert : Optional (./Alert.dhall).Type
 , transformations : List (./Transformations.dhall).Types
+, fieldConfig : Optional (./FieldConfig.dhall).Type
 }

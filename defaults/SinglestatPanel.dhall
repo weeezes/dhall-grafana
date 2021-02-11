@@ -74,4 +74,5 @@ in
     }
 , tableColumn = ""
 , transformations = [] : List (../types/Transformations.dhall).Types
+, fieldConfig = None (../types/FieldConfig.dhall).Type
 }

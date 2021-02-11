@@ -12,4 +12,5 @@ in
 , maxPerRow = None Natural
 , transparent = False
 , transformations = [] : List (../types/Transformations.dhall).Types
+, fieldConfig = None (../types/FieldConfig.dhall).Type
 }
