@@ -29,6 +29,10 @@
     { default = ./defaults/PrometheusTarget.dhall
     , Type = (./types/PrometheusTarget.dhall).Type
     }
+, InfluxTarget =
+    { default = ./defaults/InfluxTarget.dhall
+    , Type = (./types/InfluxTarget.dhall).Type
+    }
 , TestDataDBTarget =
     { default = ./defaults/TestDataDBTarget.dhall
     , Type = (./types/TestDataDBTarget.dhall).Type
