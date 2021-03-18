@@ -2,7 +2,7 @@
 
 # Usage
 
-Run `nix-shell` in the [`local-dev`](./local-dev) directory. After the shell has started run `run-grafana-server` to start Grafana, and `./watch.sh <path-to-your-dhall-dashboard>` to start the live reloads.
+Run `nix-shell` in the [`local-dev`](./local-dev) directory. After the shell has started run `foreman start` to start Grafana and other services (check [`Procfile'](./Procfile) for details), and `./watch.sh <path-to-your-dhall-dashboard>` to start the live reloads.
 
 # Requirements
 
