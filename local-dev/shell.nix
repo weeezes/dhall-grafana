@@ -40,11 +40,30 @@ let
     wait
   '';
 
+  
   initInfluxData = pkgs.writeShellScriptBin "init-influx-data" ''
   ${pkgs.influxdb}/bin/influx -execute 'CREATE DATABASE NOAA_water_database'
   ${pkgs.curl}/bin/curl https://s3.amazonaws.com/noaa.water-database/NOAA_data.txt -o ${dataPath}/NOAA_data.txt
   ${pkgs.influxdb}/bin/influx -import -path=${dataPath}/NOAA_data.txt -precision=s -database=NOAA_water_database
   '';
+
+  prometheusConfig = pkgs.writeTextFile {
+    name = "prometheus.conf";
+    text = ''
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+      '';
+  };
+
+  runPrometheus = pkgs.writeShellScriptBin "run-prometheus-server" ''
+    set -eu
+
+    # Start influx in the background
+    ${pkgs.prometheus}/bin/prometheus --config.file=${prometheusConfig} --storage.tsdb.path="${dataPath}/prometheus"
+  '';
+
 
 
 in
@@ -61,5 +80,6 @@ mkShell {
     foreman
     runGrafana
     runInflux
+    runPrometheus
   ];
 }
