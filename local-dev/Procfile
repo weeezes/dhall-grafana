@@ -1,2 +1,3 @@
 grafana: run-grafana-server
 influxdb: run-influx-server
+prometheus: run-prometheus-server
