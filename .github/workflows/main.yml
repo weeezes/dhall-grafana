@@ -33,3 +33,7 @@ jobs:
       run: |
         echo "Building examples/consul_exporter.dhall"
         ./dhall-to-json --file examples/consul_exporter.dhall
+    - name: Build examples/influxdb.dhall
+      run: |
+        echo "Building examples/influxdb.dhall"
+        ./dhall-to-json --file examples/influxdb.dhall

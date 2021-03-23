@@ -1,3 +1,1 @@
-let InfluxTarget = ../types/InfluxTarget.dhall
-
-in  { rawQuery = True, resultFormat = "time_series", policy = "value" }
+{ orderByTime = "DESC", resultFormat = "time_series", policy = "default" }
