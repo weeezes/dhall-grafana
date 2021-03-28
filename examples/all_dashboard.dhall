@@ -59,6 +59,7 @@ let panels =
             , gridPos = { x = 0, y = 12, w = 24, h = 6 }
             , datasource = Some ("$" ++ datasourceName)
             , xaxis = Grafana.XAxis::{ name = Some "x-label" }
+            , yaxes = [Grafana.YAxis::{ label = Some "temperature" }, Grafana.YAxis.default ]
             , targets =
                 [ Grafana.MetricsTargets.TestDataDBTarget
                     { refId = "A"
