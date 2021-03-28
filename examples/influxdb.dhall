@@ -1,7 +1,8 @@
 let Grafana = ../package.dhall
 
-let gauge =
+let noaa-target =
       \(measurement : Text) ->
+      \(field : Text) ->
         Grafana.MetricsTargets.InfluxTarget
           { groupBy =
             [ { type = "time", params = [ "\$__interval" ] }
@@ -14,29 +15,33 @@ let gauge =
           , alias = measurement
           , resultFormat = "time_series"
           , select =
-            [ [ { type = "field", params = [ "value" ] }
+            [ [ { type = "field", params = [ field ] }
               , { type = "distinct", params = [] : List Text }
               ]
             ]
-          , tags = [ { key = "metric_type", operator = "=", value = "gauge" } ]
+          , tags = [] : List { key : Text, operator : Text, value : Text }
           }
 
-let resource-panel =
+let noaa-panel =
       \(title : Text) ->
       \(measurement : Text) ->
+      \(field : Text) ->
         Grafana.Panels.mkGraphPanel
           Grafana.GraphPanel::{
           , title
+          , datasource = Some "InfluxDB"
           , gridPos = { x = 0, y = 1, w = 24, h = 8 }
-          , targets = [ gauge measurement ]
+          , targets = [ noaa-target measurement field ]
           }
 
 let dashboard =
       Grafana.Dashboard::{
       , title = "InfluxDB metrics"
       , uid = Some "influxdb_metrics"
+      , editable = True
+      , time = { from = "2019-09-16T21:00:00Z", to = "2019-09-17T20:00:00Z" }
       , panels =
-          Grafana.Utils.generateIds [ resource-panel "CPU" "zuul.local.cores" ]
+          Grafana.Utils.generateIds [ noaa-panel "H2O (feet)" "h2o_feet" "water_level" ]
       }
 
 in  dashboard
