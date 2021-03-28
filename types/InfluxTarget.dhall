@@ -10,9 +10,8 @@ let InfluxTarget =
       , policy : Text
       , resultFormat : Text
       , refId : Text
-      , query : Text
-      , rawQuery : Bool
       , tags : List InfluxTag
+      , alias : Text
       }
 
 in  { Type = InfluxTarget, InfluxGroup, InfluxTag }
