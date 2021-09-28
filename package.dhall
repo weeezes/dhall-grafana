@@ -7,6 +7,9 @@
     { default = ./defaults/SinglestatPanel.dhall
     , Type = (./types/SinglestatPanel.dhall).Type
     }
+, StatPanelOptions =
+    ./types/StatPanelOptions.dhall //
+    { default = ./defaults/StatPanelOptions.dhall }
 , StatPanel =
     { default = (./defaults/StatPanel.dhall).StatPanel
     , Type = (./types/StatPanel.dhall).Type
