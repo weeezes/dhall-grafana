@@ -1,26 +1,6 @@
 let PanelType = < stat >
 let NullPointMode = < null | connected | `null as zero` >
 
-let ColorMode = < value | background >
-let GraphMode = < none | area >
-let JustifyMode = < auto | center >
-let Orientation = < auto | horizontal | vertical >
-let TextMode = < auto | value | value_and_name | name | none >
-let CalcMode = < lastNotNull | last | firstNotNull | first | min | max | mean | total | count | range | delta | step | diff | logmin | allIsZero | allIsNull | changeCount | distinctCount >
-
-let Options =
-    { colorMode : ColorMode
-    , graphMode : GraphMode
-    , justifyMode : JustifyMode
-    , orientation : Orientation
-    , reduceOptions :
-        { calcs : List CalcMode
-        , fields : Text
-        , values : Bool
-        }
-    , textMode : TextMode
-    }
-
 let StatPanel =
     ./BasePanel.dhall //\\
     { type : PanelType
@@ -28,7 +8,7 @@ let StatPanel =
     , targets : List ./MetricTargets.dhall
     , timeFrom : Optional Text
     , timeShift : Optional Text
-    , options : Options
+    , options : (./StatPanelOptions.dhall).Type
     , maxDataPoints : Natural
     -- , interval : Optional Text
     -- , cacheTimeout : Optional Text
@@ -68,26 +48,9 @@ let StatPanel =
     , colorPostfix : Optional Bool
     }
 
-let mkOptions =
-    { colorMode = ColorMode.background
-    , graphMode = GraphMode.area
-    , justifyMode = JustifyMode.auto
-    , orientation = Orientation.auto
-    , reduceOptions = { calcs = [ CalcMode.mean ], fields = "", values = False }
-    , textMode = TextMode.auto
-    }
-
 in
 
 { Type = StatPanel
 , PanelType
 , NullPointMode
-, ColorMode
-, GraphMode
-, JustifyMode
-, Orientation
-, TextMode
-, CalcMode
-, Options
-, mkOptions
 }

@@ -2,15 +2,6 @@ let StatPanel = ../types/StatPanel.dhall
 let MetricTargets = ../types/MetricTargets.dhall
 let Link = ../types/Link.dhall
 
-let Options =
-    { colorMode = StatPanel.ColorMode.background
-    , graphMode = StatPanel.GraphMode.area
-    , justifyMode = StatPanel.JustifyMode.auto
-    , orientation = StatPanel.Orientation.auto
-    , reduceOptions = { calcs = [ StatPanel.CalcMode.mean ], fields = "", values = False }
-    , textMode = StatPanel.TextMode.auto
-    }
-
 let StatPanel =
     { type = StatPanel.PanelType.stat
     , alert = None (../types/Alert.dhall).Type
@@ -22,7 +13,7 @@ let StatPanel =
     , transparent = False
     , timeFrom = None Text
     , timeShift = None Text
-    , options = Options
+    , options = ./StatPanelOptions.dhall
     , colorPostfix = None Bool
     , colorPrefix = None Bool
     , datasource = None Text

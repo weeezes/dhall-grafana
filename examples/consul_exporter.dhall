@@ -37,6 +37,9 @@ let panels =
                     ([] : List ({ color : Text, value : Double }))
 
                 }
+            , options = Grafana.StatPanelOptions::
+                { orientation = Grafana.StatPanelOptions.Orientation.horizontal
+                }
             }
         )
     , Grafana.Panels.mkGraphPanel
