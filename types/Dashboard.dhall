@@ -1,5 +1,5 @@
 let Style = < dark | light >
-let TimeZone = < utc | browser >
+let TimeZoneOption = < utc | browser >
 
 let Dashboard =
     { id: Natural
@@ -7,7 +7,7 @@ let Dashboard =
     , title: Text
     , tags: List Text
     , style: Style
-    , timezone: Optional TimeZone
+    , timezone: Optional TimeZoneOption
     , editable: Bool
     , hideControls: Bool
     , graphTooltip: Natural
@@ -28,5 +28,5 @@ in
 
 { Type = Dashboard
 , Style = Style
-, TimeZone = TimeZone
+, TimeZone = TimeZoneOption
 }
