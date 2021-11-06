@@ -1,5 +1,5 @@
 let Prelude =
-      https://prelude.dhall-lang.org/v19.0.0/package.dhall sha256:eb693342eb769f782174157eba9b5924cf8ac6793897fc36a31ccbd6f56dafe2
+      https://prelude.dhall-lang.org/v20.1.0/package.dhall sha256:26b0ef498663d269e4dc6a82b0ee289ec565d683ef4c00d0ebdd25333a5a3c98
 
 let ColorMode = < fixed | thresholds | absolute | percentage >
 let MatcherID = < byName >
