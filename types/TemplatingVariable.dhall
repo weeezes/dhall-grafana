@@ -8,6 +8,7 @@ let VariableType =
     | textbox >
 
 let Option = { selected : Bool, text : Text, value : Text }
+
 let Current = { text : Text, value : Text }
 
 let TemplatingVariableBase =
@@ -60,19 +61,19 @@ let DatasourceVariable =
 
 let CustomVariable =
     TemplatingVariableBase //\\
-    { query: Text
-    , allValue: Optional Text
-    , includeAll: Bool
-    , multi: Bool
-    , options: List Option
-    , current: Optional Current
+    { query : Text
+    , allValue : Optional Text
+    , includeAll : Bool
+    , multi : Bool
+    , options : List Option
+    , current : { text : List Text, value : List Text }
     }
 
 let ConstantVariable =
     TemplatingVariableBase //\\
     { query : Text
     , options: List Option
-    , current: Optional Current
+    , current : Optional Current
     }
 
 let TextboxVariable =
