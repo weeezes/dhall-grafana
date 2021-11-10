@@ -116,6 +116,7 @@ let customValue =
         , hide = 0
         , includeAll = True
         , label = None Text
+        , description = None Text
         , multi = True
         , name = "custom"
         , options =
