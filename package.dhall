@@ -3,6 +3,10 @@
     { default = ./defaults/Dashboard.dhall
     , Type = (./types/Dashboard.dhall).Type
     }
+, TimePicker =
+    { default = ./defaults/TimePicker.dhall
+    , Type = (./types/TimePicker.dhall).Type
+    }
 , SinglestatPanel =
     { default = ./defaults/SinglestatPanel.dhall
     , Type = (./types/SinglestatPanel.dhall).Type
