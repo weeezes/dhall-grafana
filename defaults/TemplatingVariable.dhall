@@ -197,7 +197,13 @@ let mkTextbox =
       λ(value : Text) →
       λ(_hide : Bool) →
         Templating.TextboxVariable
-          (textboxValue ⫽ { name, query = value, hide = hide _hide })
+          (   textboxValue
+            ⫽ { name
+              , query = value
+              , current = Some { text = name, value }
+              , hide = hide _hide
+              }
+          )
 
 let adHocValue =
       { hide = 0
