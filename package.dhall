@@ -3,6 +3,10 @@
     { default = ./defaults/Dashboard.dhall
     , Type = (./types/Dashboard.dhall).Type
     }
+, TimePicker =
+    { default = ./defaults/TimePicker.dhall
+    , Type = (./types/TimePicker.dhall).Type
+    }
 , SinglestatPanel =
     { default = ./defaults/SinglestatPanel.dhall
     , Type = (./types/SinglestatPanel.dhall).Type
@@ -64,6 +68,7 @@
     { default = ./defaults/GridPos.dhall
     , Type = ./types/GridPos.dhall
     }
+, TimeZone = (./types/Dashboard.dhall).TimeZone
 , Transformations =
     { default = (./types/Transformations.dhall).Types.Organize
     , Type = (./types/Transformations.dhall).Types
@@ -74,6 +79,10 @@
     }
 , Panels = ./types/Panels.dhall
 , MetricsTargets = ./types/MetricTargets.dhall
+, RawQueryTarget =
+    { default = ./defaults/RawQueryTarget.dhall
+    , Type = (./types/RawQueryTarget.dhall).Type
+    }
 , ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
 , TemplatingVariable = ./types/TemplatingVariable.dhall
 , TemplatingVariableUtils = ./defaults/TemplatingVariable.dhall

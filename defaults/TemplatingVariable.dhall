@@ -20,6 +20,7 @@ let queryValue =
       , hide = 0
       , includeAll = True
       , label = None Text
+      , description = None Text
       , multi = True
       , name = "query"
       , options = [] : List { selected : Bool, text : Text, value : Text }
@@ -49,6 +50,7 @@ let intervalValue =
       , current = None { text : Text, value : Text }
       , hide = 0
       , label = None Text
+      , description = None Text
       , name = "interval"
       , options =
         [ { selected = True, text = "5s", value = "5s" }
@@ -92,6 +94,7 @@ let datasourceValue =
       , query = "prometheus"
       , hide = 0
       , label = None Text
+      , description = None Text
       , name = "datasource"
       , skipUrlSync = False
       , type = VariableType.datasource
@@ -154,6 +157,7 @@ let constantValue =
       { current = None { text : Text, value : Text }
       , hide = 0
       , label = None Text
+      , description = None Text
       , name = "constant"
       , options = [ { selected = True, text = "9999", value = "9999" } ]
       , query = "9999"
@@ -180,6 +184,7 @@ let textboxValue =
       { current = None { text : Text, value : Text }
       , hide = 0
       , label = None Text
+      , description = None Text
       , name = "textbox"
       , options = [] : List { selected : Bool, text : Text, value : Text }
       , query =
@@ -198,11 +203,18 @@ let mkTextbox =
       λ(value : Text) →
       λ(_hide : Bool) →
         Templating.TextboxVariable
-          (textboxValue ⫽ { name, query = value, hide = hide _hide })
+          (   textboxValue
+            ⫽ { name
+              , query = value
+              , current = Some { text = name, value }
+              , hide = hide _hide
+              }
+          )
 
 let adHocValue =
       { hide = 0
       , label = None Text
+      , description = None Text
       , name = "adhoc"
       , skipUrlSync = False
       , type = VariableType.adhoc
@@ -233,4 +245,5 @@ in  { QueryVariable
     , mkTextbox
     , AdHocVariable
     , mkAdHoc
+    , hide
     }
