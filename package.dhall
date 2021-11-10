@@ -64,6 +64,7 @@
     { default = ./defaults/GridPos.dhall
     , Type = ./types/GridPos.dhall
     }
+, TimeZone = (./types/Dashboard.dhall).TimeZone
 , Transformations =
     { default = (./types/Transformations.dhall).Types.Organize
     , Type = (./types/Transformations.dhall).Types
