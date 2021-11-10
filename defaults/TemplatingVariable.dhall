@@ -238,4 +238,5 @@ in  { QueryVariable
     , mkTextbox
     , AdHocVariable
     , mkAdHoc
+    , hide
     }
