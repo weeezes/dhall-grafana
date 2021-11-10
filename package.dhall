@@ -74,6 +74,10 @@
     }
 , Panels = ./types/Panels.dhall
 , MetricsTargets = ./types/MetricTargets.dhall
+, RawQueryTarget =
+    { default = ./defaults/RawQueryTarget.dhall
+    , Type = (./types/RawQueryTarget.dhall).Type
+    }
 , ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
 , TemplatingVariable = ./types/TemplatingVariable.dhall
 , TemplatingVariableUtils = ./defaults/TemplatingVariable.dhall
