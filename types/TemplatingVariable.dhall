@@ -13,6 +13,7 @@ let Current = { text : Text, value : Text }
 let TemplatingVariableBase =
     { hide: Natural
     , label: Optional Text
+    , description : Optional Text
     , name: Text
     , skipUrlSync: Bool
     {-
