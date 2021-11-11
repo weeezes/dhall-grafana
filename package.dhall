@@ -86,6 +86,7 @@
 , ScenarioId = (./types/TestDataDBTarget.dhall).ScenarioId
 , TemplatingVariable = ./types/TemplatingVariable.dhall
 , TemplatingVariableUtils = ./defaults/TemplatingVariable.dhall
+, TemplatingVariableNew = ./Grafana/TemplatingVariable/package.dhall
 , PrometheusTargetFormat = (./types/PrometheusTarget.dhall).FormatType
 , Alert =
     { default = (./defaults/Alert.dhall)

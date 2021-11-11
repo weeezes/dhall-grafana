@@ -1,6 +1,8 @@
 let Prelude =
       https://prelude.dhall-lang.org/v20.1.0/package.dhall sha256:26b0ef498663d269e4dc6a82b0ee289ec565d683ef4c00d0ebdd25333a5a3c98
 
+let WIP = ../Grafana/package.dhall
+
 let boolFold = Prelude.Bool.fold
 
 let map = Prelude.List.map
@@ -13,27 +15,9 @@ let VariableType = (../types/TemplatingVariable.dhall).VariableType
 
 let hide = λ(hide : Bool) → boolFold hide Natural 2 0
 
-let queryValue =
-      { allValue = None Text
-      , current = None { text : Text, value : Text }
-      , datasource = "Prometheus"
-      , hide = 0
-      , includeAll = True
-      , label = None Text
-      , description = None Text
-      , multi = True
-      , name = "query"
-      , options = [] : List { selected : Bool, text : Text, value : Text }
-      , query = "label_values(hass_temperature_c, entity)"
-      , refresh = 1
-      , regex = "/.*/"
-      , skipUrlSync = False
-      , sort = 1
-      , type = VariableType.query
-      , useTags = False
-      }
+let queryValue = WIP.TemplatingVariable.Query.default
 
-let QueryVariable = Templating.QueryVariable queryValue
+let QueryVariable = WIP.TemplatingVariable.Type.Query queryValue
 
 let mkQuery =
       λ(name : Text) →
@@ -41,7 +25,7 @@ let mkQuery =
       λ(datasource : Text) →
       λ(_hide : Bool) →
         Templating.QueryVariable
-          (queryValue ⫽ { name, query, datasource, hide = hide _hide })
+          (WIP.TemplatingVariable.mk._query name query datasource _hide)
 
 let intervalValue =
       { auto = None Bool

@@ -1,0 +1,2 @@
+{ TemplatingVariable = ./TemplatingVariable/package.dhall
+}

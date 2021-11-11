@@ -75,11 +75,12 @@ let templateVariables =
         "Interval"
         ["5s", "10s", "15s", "20s", "25s"]
         False
-  {-,  Variable.mkQuery
+    , Grafana.TemplatingVariableUtils.mkQuery
         "Temperature"
         "label_values(hass_temperature_c, entity)"
         "Prometheus"
-        False -}
+        False
+    , (Grafana.TemplatingVariable.Types.QueryVariable) (../Grafana/package.dhall).TemplatingVariable.Query::{ name = "foo" }
     , Grafana.TemplatingVariableUtils.mkDatasource
         datasourceName
         "testdata"

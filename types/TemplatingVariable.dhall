@@ -1,4 +1,6 @@
-let VariableType = 
+let WIP = ../Grafana/package.dhall
+
+let VariableType =
     < query
     | datasource
     | interval
@@ -10,34 +12,8 @@ let VariableType =
 let Option = { selected : Bool, text : Text, value : Text }
 let Current = { text : Text, value : Text }
 
-let TemplatingVariableBase =
-    { hide: Natural
-    , label: Optional Text
-    , description : Optional Text
-    , name: Text
-    , skipUrlSync: Bool
-    {-
-    , tagValuesQuery: 
-    , tags: []
-    , tagsQuery: 
-    -}
-    , type : VariableType
-    }
-
-let QueryVariable = 
-    TemplatingVariableBase //\\
-    { query: Text
-    , allValue: Optional Text
-    , includeAll: Bool
-    , multi: Bool
-    , regex: Text
-    , sort: Natural
-    , refresh : Natural 
-    , options: List Option
-    , datasource: Text
-    , current: Optional Current
-    , useTags: Bool
-    }
+let TemplatingVariableBase = WIP.TemplatingVariable.Base.Type
+let QueryVariable = WIP.TemplatingVariable.Query.Type
 
 let IntervalVariable =
     TemplatingVariableBase //\\
@@ -89,7 +65,7 @@ let AdHocVariable =
     , datasource : Text
     }
 
-let Types = 
+let Types =
     < QueryVariable : QueryVariable
     | IntervalVariable : IntervalVariable
     | DatasourceVariable : DatasourceVariable
