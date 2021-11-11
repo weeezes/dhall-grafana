@@ -5,9 +5,51 @@ let ColorMode = < fixed | thresholds | absolute | percentage >
 let MatcherID = < byName >
 let MatcherOption = < status >
 
+let CustomFieldConfig
+    : Type
+    = { axisLabel : Text
+      , axisPlacement : Text
+      , barAlignment : Text
+      , drawStyle : Text
+      , fillOpacity : Natural
+      , gradientMode : Text
+      , hideFrom : { legend : Bool, tooltip : Bool, viz : Bool }
+      , lineInterpolation : Text
+      , lineWidth : Natural
+      , pointSize : Natural
+      , scaleDistribution : { type : Text }
+      , showPoints : Text
+      , spanNulls : Bool
+      , stacking : { group : Text, mode : Text }
+      , thresholdsStyle : { mode : Text }
+      }
+
+let defaultCustomFieldConfig
+    : CustomFieldConfig
+    = { axisLabel = ""
+      , axisPlacement = "auto"
+      , barAlignment = "line"
+      , drawStyle = "line"
+      , fillOpacity = 0
+      , gradientMode = "none"
+      , hideFrom = { legend = False, tooltip = False, viz = False }
+      , lineInterpolation = "linear"
+      , lineWidth = 1
+      , pointSize = 5
+      , scaleDistribution.type = "linear"
+      , showPoints = "auto"
+      , spanNulls = False
+      , stacking = { group = "A", mode = "none" }
+      , thresholdsStyle.mode = "off"
+      }
+
+let Custom
+    : Type
+    = < empty : {} | custom : CustomFieldConfig >
+
 let Defaults =
     { color : { fixedColor : Text, mode : ColorMode }
-    , custom : {}
+    , custom : Custom
     , mappings : List {}
     , thresholds : { mode : ColorMode, steps: List ({ color : Text, value : Optional Double }) }
     }
@@ -22,21 +64,39 @@ let FieldConfig =
     , overrides: List Override
     }
 
+let defaultDefaults
+    : Defaults
+    = { color = { fixedColor = "", mode = ColorMode.fixed }
+      , custom = Custom.empty {=}
+      , mappings = [] : List {}
+      , thresholds =
+        { mode = ColorMode.fixed
+        , steps = [] : List { color : Text, value : Optional Double }
+        }
+      }
+
 let mkDefaults =
     \(color : { fixedColor : Text, mode : ColorMode }) ->
     \(baseThresholdColor : Text ) ->
     \(thresholdColorMode : ColorMode) ->
-    \(steps : List ({ color : Text, value : Double })) ->
-        Some { color = color
-        , custom = {=}
-        , mappings = [] : List {}
-        , thresholds =
-            { mode = thresholdColorMode
-            , steps =
-                [ { color = baseThresholdColor, value = None Double } ]
-                # (Prelude.List.map { color : Text, value : Double } { color : Text, value : Optional Double } (\(t : { color : Text, value : Double }) -> { color = t.color, value = Some t.value }) steps)
-            }
-        }
+    \(steps : List { color : Text, value : Double }) ->
+      Some
+        (     defaultDefaults
+          //  { color
+              , thresholds =
+                { mode = thresholdColorMode
+                , steps =
+                      [ { color = baseThresholdColor, value = None Double } ]
+                    # Prelude.List.map
+                        { color : Text, value : Double }
+                        { color : Text, value : Optional Double }
+                        ( \(t : { color : Text, value : Double }) ->
+                            { color = t.color, value = Some t.value }
+                        )
+                        steps
+                }
+              }
+        )
 
 in
 
@@ -47,4 +107,8 @@ in
 , Defaults = Defaults
 , Override = Override
 , mkDefaults
+, Custom
+, CustomFieldConfig =
+  { Type = CustomFieldConfig, default = defaultCustomFieldConfig }
+, defaultCustomFieldConfig
 }

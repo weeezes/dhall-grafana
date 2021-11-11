@@ -97,6 +97,10 @@
     , Type = (./types/FieldConfig.dhall).Type
     }
 , FieldConfigs = ./types/FieldConfig.dhall
+, CustomFieldConfig =
+   { Type = (./types/FieldConfig.dhall).CustomFieldConfig
+   , default = (./types/FieldConfig.dhall).defaultCustomFieldConfig
+   }
 , XAxis = ./types/XAxis.dhall // { default = ./defaults/XAxis.dhall }
 , YAxis = ./types/YAxis.dhall // { default = ./defaults/YAxis.dhall }
 }
