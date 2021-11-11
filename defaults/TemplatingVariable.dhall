@@ -112,7 +112,7 @@ let mkDatasource =
 
 let customValue =
         { allValue = None Text
-        , current = { text = [] : List Text , value = [] : List Text }
+        , current = None { text : Text, value : Text }
         , hide = 0
         , includeAll = True
         , label = None Text
@@ -146,6 +146,47 @@ let mkCustom =
 
         in  Templating.CustomVariable
               (   customValue
+                ⫽ { name
+                  , options = opt
+                  , query = concatSep "," options
+                  , hide = hide _hide
+                  }
+              )
+
+let customMultiValue =
+        { allValue = None Text
+        , current = { text = [] : List Text , value = [] : List Text }
+        , hide = 0
+        , includeAll = True
+        , label = None Text
+        , description = None Text
+        , multi = True
+        , name = "custom"
+        , options =
+          [ { selected = True, text = "6", value = "6" }
+          , { selected = False, text = "7", value = "7" }
+          , { selected = False, text = "8", value = "8" }
+          , { selected = False, text = "9", value = "9" }
+          , { selected = False, text = "10", value = "10" }
+          ]
+        , query = "6,7,8,9"
+        , skipUrlSync = False
+        , type = VariableType.custom
+        }
+
+let mkCustomMulti =
+      λ(name : Text) →
+      λ(options : List Text) →
+      λ(_hide : Bool) →
+        let opt =
+              map
+                Text
+                { selected : Bool, text : Text, value : Text }
+                (λ(o : Text) → { selected = False, text = o, value = o })
+                options
+
+        in  Templating.CustomMultiVariable
+              (   customMultiValue
                 ⫽ { name
                   , options = opt
                   , current = { text = options, value = options }

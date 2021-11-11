@@ -67,6 +67,16 @@ let CustomVariable =
     , includeAll : Bool
     , multi : Bool
     , options : List Option
+    , current : Optional Current
+    }
+
+let CustomMultiVariable =
+    TemplatingVariableBase //\\
+    { query : Text
+    , allValue : Optional Text
+    , includeAll : Bool
+    , multi : Bool
+    , options : List Option
     , current : { text : List Text, value : List Text }
     }
 
@@ -95,6 +105,7 @@ let Types =
     | IntervalVariable : IntervalVariable
     | DatasourceVariable : DatasourceVariable
     | CustomVariable : CustomVariable
+    | CustomMultiVariable : CustomMultiVariable
     | ConstantVariable : ConstantVariable
     | TextboxVariable : TextboxVariable
     | AdHocVariable : AdHocVariable
