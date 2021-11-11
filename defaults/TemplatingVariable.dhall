@@ -7,6 +7,7 @@ let map = Prelude.List.map
 
 let concatSep = Prelude.Text.concatSep
 
+let TemplatingVariable = (../types/TemplatingVariable.dhall)
 let Templating = (../types/TemplatingVariable.dhall).Types
 
 let VariableType = (../types/TemplatingVariable.dhall).VariableType
@@ -273,19 +274,41 @@ let mkAdHoc =
         Templating.AdHocVariable
           (adHocValue ⫽ { name, filters, hide = hide _hide })
 
-in  { QueryVariable
-    , mkQuery
-    , IntervalVariable
-    , mkInterval
-    , DatasourceVariable
-    , mkDatasource
-    , CustomVariable
-    , mkCustom
-    , ConstantVariable
-    , mkConstant
-    , TextboxVariable
-    , mkTextbox
-    , AdHocVariable
-    , mkAdHoc
-    , hide
-    }
+in
+{ QueryVariable =
+      { Type = TemplatingVariable.QueryVariable
+      , default = queryValue
+      }
+, mkQuery
+, IntervalVariable =
+      { Type = TemplatingVariable.IntervalVariable
+      , default = intervalValue
+      }
+, mkInterval
+, DatasourceVariable =
+      { Type = TemplatingVariable.DatasourceVariable
+      , default = datasourceValue
+      }
+, mkDatasource
+, CustomVariable =
+      { Type = TemplatingVariable.CustomVariable
+      , default = customValue
+      }
+, mkCustom
+, ConstantVariable =
+      { Type = TemplatingVariable.ConstantVariable
+      , default = constantValue
+      }
+, mkConstant
+, TextboxVariable =
+      { Type = TemplatingVariable.TextboxVariable
+      , default = textboxValue
+      }
+, mkTextbox
+, AdHocVariable =
+      { Type = TemplatingVariable.AdHocVariable
+      , default = adHocValue
+      }
+, mkAdHoc
+, hide
+}

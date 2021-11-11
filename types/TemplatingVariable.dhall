@@ -1,4 +1,4 @@
-let VariableType = 
+let VariableType =
     < query
     | datasource
     | interval
@@ -18,14 +18,14 @@ let TemplatingVariableBase =
     , name: Text
     , skipUrlSync: Bool
     {-
-    , tagValuesQuery: 
+    , tagValuesQuery:
     , tags: []
-    , tagsQuery: 
+    , tagsQuery:
     -}
     , type : VariableType
     }
 
-let QueryVariable = 
+let QueryVariable =
     TemplatingVariableBase //\\
     { query: Text
     , allValue: Optional Text
@@ -33,7 +33,7 @@ let QueryVariable =
     , multi: Bool
     , regex: Text
     , sort: Natural
-    , refresh : Natural 
+    , refresh : Natural
     , options: List Option
     , datasource: Text
     , current: Optional Current
@@ -100,7 +100,7 @@ let AdHocVariable =
     , datasource : Text
     }
 
-let Types = 
+let Types =
     < QueryVariable : QueryVariable
     | IntervalVariable : IntervalVariable
     | DatasourceVariable : DatasourceVariable
@@ -117,4 +117,11 @@ in
 , VariableType = VariableType
 , Current
 , Option
+, QueryVariable
+, IntervalVariable
+, DatasourceVariable
+, CustomVariable
+, ConstantVariable
+, TextboxVariable
+, AdHocVariable
 }
