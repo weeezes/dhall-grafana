@@ -97,6 +97,10 @@
     , Type = (./types/FieldConfig.dhall).Type
     }
 , FieldConfigs = ./types/FieldConfig.dhall
+, Defaults =
+   { Type = (./types/FieldConfig.dhall).Defaults
+   , default = (./types/FieldConfig.dhall).defaultDefaults
+   }
 , CustomFieldConfig =
    { Type = (./types/FieldConfig.dhall).CustomFieldConfig
    , default = (./types/FieldConfig.dhall).defaultCustomFieldConfig

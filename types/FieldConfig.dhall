@@ -107,6 +107,7 @@ in
 , Defaults = Defaults
 , Override = Override
 , mkDefaults
+, defaultDefaults
 , Custom
 , CustomFieldConfig =
   { Type = CustomFieldConfig, default = defaultCustomFieldConfig }
