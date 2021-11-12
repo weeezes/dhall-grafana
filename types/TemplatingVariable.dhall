@@ -7,8 +7,10 @@ let VariableType =
     | adhoc
     | textbox >
 
-let Option = { selected : Bool, text : Text, value : Text }
-let Current = { text : Text, value : Text }
+let OptionSingle = { selected : Bool, text : Text, value : Text }
+let OptionMulti = { selected : Bool, text : List Text, value : List Text }
+let Option = < Single : OptionSingle | Multi : OptionMulti >
+let Current = Option
 
 let TemplatingVariableBase =
     { hide: Natural
@@ -16,11 +18,6 @@ let TemplatingVariableBase =
     , description : Optional Text
     , name: Text
     , skipUrlSync: Bool
-    {-
-    , tagValuesQuery:
-    , tags: []
-    , tagsQuery:
-    -}
     , type : VariableType
     }
 
@@ -104,6 +101,8 @@ in
 { Types = Types
 , VariableType = VariableType
 , Current
+, OptionSingle
+, OptionMulti
 , Option
 , QueryVariable
 , IntervalVariable
