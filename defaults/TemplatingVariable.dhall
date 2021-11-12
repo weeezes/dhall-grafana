@@ -112,25 +112,25 @@ let mkDatasource =
           (datasourceValue ⫽ { name, query, regex, hide = hide _hide })
 
 let customValue =
-        { allValue = None Text
-        , current = None { text : Text, value : Text }
-        , hide = 0
-        , includeAll = True
-        , label = None Text
-        , description = None Text
-        , multi = True
-        , name = "custom"
-        , options =
-          [ { selected = True, text = "6", value = "6" }
-          , { selected = False, text = "7", value = "7" }
-          , { selected = False, text = "8", value = "8" }
-          , { selected = False, text = "9", value = "9" }
-          , { selected = False, text = "10", value = "10" }
-          ]
-        , query = "6,7,8,9"
-        , skipUrlSync = False
-        , type = VariableType.custom
-        }
+      { allValue = None Text
+      , current = None { text : Text, value : Text }
+      , hide = 0
+      , includeAll = True
+      , label = None Text
+      , description = None Text
+      , multi = True
+      , name = "custom"
+      , options =
+        [ { selected = True, text = "6", value = "6" }
+        , { selected = False, text = "7", value = "7" }
+        , { selected = False, text = "8", value = "8" }
+        , { selected = False, text = "9", value = "9" }
+        , { selected = False, text = "10", value = "10" }
+        ]
+      , query = "6,7,8,9"
+      , skipUrlSync = False
+      , type = VariableType.custom
+      }
 
 let CustomVariable = Templating.CustomVariable customValue
 
