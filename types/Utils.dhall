@@ -15,7 +15,7 @@ let generateIds
         map
           IndexedType
           Panels
-          (λ(p : IndexedType) → p.value p.index)
+          (λ(p : IndexedType) → p.value (p.index + 1))
           (indexed (Natural → Panels) list)
 
 in  { generateIds }
