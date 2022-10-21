@@ -1,4 +1,4 @@
-let PanelType = < stat >
+let PanelType = < stat | gauge >
 let NullPointMode = < null | connected | `null as zero` >
 
 let StatPanel =
