@@ -95,6 +95,7 @@
 , FieldConfig =
     { default = (./defaults/FieldConfig.dhall).NullFieldConfig
     , Type = (./types/FieldConfig.dhall).Type
+    , Override = (./types/FieldConfig.dhall).Override
     }
 , FieldConfigs = ./types/FieldConfig.dhall
 , XAxis = ./types/XAxis.dhall // { default = ./defaults/XAxis.dhall }

@@ -8,6 +8,7 @@ let MatcherOption = < status >
 let Defaults =
     { color : { fixedColor : Text, mode : ColorMode }
     , custom : {}
+    , unit : Optional Text
     , mappings : List {}
     , thresholds : { mode : ColorMode, steps: List ({ color : Text, value : Optional Double }) }
     }
@@ -29,6 +30,7 @@ let mkDefaults =
     \(steps : List ({ color : Text, value : Double })) ->
         Some { color = color
         , custom = {=}
+        , unit = None Text
         , mappings = [] : List {}
         , thresholds =
             { mode = thresholdColorMode
