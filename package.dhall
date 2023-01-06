@@ -17,6 +17,7 @@
 , StatPanel =
     { default = (./defaults/StatPanel.dhall).StatPanel
     , Type = (./types/StatPanel.dhall).Type
+    , PanelType = (./types/StatPanel.dhall).PanelType
     }
 , StatPanels = ./types/StatPanel.dhall
 , TextPanel =
