@@ -28,5 +28,5 @@ in
 
 { Type = Dashboard
 , Style = Style
-, TimeZone = TimeZoneOption
+, Timezone = TimeZoneOption
 }
