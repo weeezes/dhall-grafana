@@ -7,9 +7,9 @@ let MatcherOption = < status >
 
 let Defaults =
     { color : { fixedColor : Text, mode : ColorMode }
-    , custom : {}
+    , custom : Optional ./FieldConfigCustom.dhall
     , unit : Optional Text
-    , mappings : List {}
+    , mappings : List ./FieldConfigMapping.dhall
     , thresholds : { mode : ColorMode, steps: List ({ color : Text, value : Optional Double }) }
     }
 
