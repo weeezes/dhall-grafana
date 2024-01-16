@@ -1,5 +1,6 @@
 let Prelude =
-      https://prelude.dhall-lang.org/v20.1.0/package.dhall sha256:26b0ef498663d269e4dc6a82b0ee289ec565d683ef4c00d0ebdd25333a5a3c98
+      https://prelude.dhall-lang.org/v20.1.0/package.dhall
+        sha256:26b0ef498663d269e4dc6a82b0ee289ec565d683ef4c00d0ebdd25333a5a3c98
 
 let boolFold = Prelude.Bool.fold
 
@@ -7,7 +8,8 @@ let map = Prelude.List.map
 
 let concatSep = Prelude.Text.concatSep
 
-let TemplatingVariable = (../types/TemplatingVariable.dhall)
+let TemplatingVariable = ../types/TemplatingVariable.dhall
+
 let Templating = (../types/TemplatingVariable.dhall).Types
 
 let VariableType = (../types/TemplatingVariable.dhall).VariableType
@@ -54,10 +56,14 @@ let intervalValue =
       , description = None Text
       , name = "interval"
       , options =
-        [ TemplatingVariable.Option.Single { selected = True, text = "5s", value = "5s" }
-        , TemplatingVariable.Option.Single { selected = False, text = "10s", value = "10s" }
-        , TemplatingVariable.Option.Single { selected = False, text = "15s", value = "15s" }
-        , TemplatingVariable.Option.Single { selected = False, text = "20s", value = "20s" }
+        [ TemplatingVariable.Option.Single
+            { selected = True, text = "5s", value = "5s" }
+        , TemplatingVariable.Option.Single
+            { selected = False, text = "10s", value = "10s" }
+        , TemplatingVariable.Option.Single
+            { selected = False, text = "15s", value = "15s" }
+        , TemplatingVariable.Option.Single
+            { selected = False, text = "20s", value = "20s" }
         ]
       , query = "5s,10s,15s,20s"
       , skipUrlSync = False
@@ -74,7 +80,10 @@ let mkInterval =
               map
                 Text
                 TemplatingVariable.Option
-                (λ(o : Text) → TemplatingVariable.Option.Single { selected = False, text = o, value = o })
+                ( λ(o : Text) →
+                    TemplatingVariable.Option.Single
+                      { selected = False, text = o, value = o }
+                )
                 options
 
         in  Templating.IntervalVariable
@@ -121,11 +130,16 @@ let customValue =
       , multi = True
       , name = "custom"
       , options =
-        [ TemplatingVariable.Option.Single { selected = True, text = "6", value = "6" }
-        , TemplatingVariable.Option.Single { selected = False, text = "7", value = "7" }
-        , TemplatingVariable.Option.Single { selected = False, text = "8", value = "8" }
-        , TemplatingVariable.Option.Single { selected = False, text = "9", value = "9" }
-        , TemplatingVariable.Option.Single { selected = False, text = "10", value = "10" }
+        [ TemplatingVariable.Option.Single
+            { selected = True, text = "6", value = "6" }
+        , TemplatingVariable.Option.Single
+            { selected = False, text = "7", value = "7" }
+        , TemplatingVariable.Option.Single
+            { selected = False, text = "8", value = "8" }
+        , TemplatingVariable.Option.Single
+            { selected = False, text = "9", value = "9" }
+        , TemplatingVariable.Option.Single
+            { selected = False, text = "10", value = "10" }
         ]
       , query = "6,7,8,9"
       , skipUrlSync = False
@@ -142,7 +156,10 @@ let mkCustom =
               map
                 Text
                 TemplatingVariable.Option
-                (λ(o : Text) → TemplatingVariable.Option.Single { selected = False, text = o, value = o })
+                ( λ(o : Text) →
+                    TemplatingVariable.Option.Single
+                      { selected = False, text = o, value = o }
+                )
                 options
 
         in  Templating.CustomVariable
@@ -160,7 +177,10 @@ let constantValue =
       , label = None Text
       , description = None Text
       , name = "constant"
-      , options = [ TemplatingVariable.Option.Single { selected = True, text = "9999", value = "9999" } ]
+      , options =
+        [ TemplatingVariable.Option.Single
+            { selected = True, text = "9999", value = "9999" }
+        ]
       , query = "9999"
       , skipUrlSync = False
       , type = VariableType.constant
@@ -176,7 +196,10 @@ let mkConstant =
           (   constantValue
             ⫽ { name
               , query = value
-              , options = [ TemplatingVariable.Option.Single { selected = True, text = value, value } ]
+              , options =
+                [ TemplatingVariable.Option.Single
+                    { selected = True, text = value, value }
+                ]
               , hide = hide _hide
               }
           )
@@ -207,7 +230,10 @@ let mkTextbox =
           (   textboxValue
             ⫽ { name
               , query = value
-              , current = Some (TemplatingVariable.Option.Single { text = name, value, selected = True })
+              , current = Some
+                  ( TemplatingVariable.Option.Single
+                      { text = name, value, selected = True }
+                  )
               , hide = hide _hide
               }
           )
@@ -232,41 +258,28 @@ let mkAdHoc =
         Templating.AdHocVariable
           (adHocValue ⫽ { name, filters, hide = hide _hide })
 
-in
-{ QueryVariable =
-      { Type = TemplatingVariable.QueryVariable
-      , default = queryValue
-      }
-, mkQuery
-, IntervalVariable =
-      { Type = TemplatingVariable.IntervalVariable
-      , default = intervalValue
-      }
-, mkInterval
-, DatasourceVariable =
+in  { QueryVariable =
+      { Type = TemplatingVariable.QueryVariable, default = queryValue }
+    , mkQuery
+    , IntervalVariable =
+      { Type = TemplatingVariable.IntervalVariable, default = intervalValue }
+    , mkInterval
+    , DatasourceVariable =
       { Type = TemplatingVariable.DatasourceVariable
       , default = datasourceValue
       }
-, mkDatasource
-, CustomVariable =
-      { Type = TemplatingVariable.CustomVariable
-      , default = customValue
-      }
-, mkCustom
-, ConstantVariable =
-      { Type = TemplatingVariable.ConstantVariable
-      , default = constantValue
-      }
-, mkConstant
-, TextboxVariable =
-      { Type = TemplatingVariable.TextboxVariable
-      , default = textboxValue
-      }
-, mkTextbox
-, AdHocVariable =
-      { Type = TemplatingVariable.AdHocVariable
-      , default = adHocValue
-      }
-, mkAdHoc
-, hide
-}
+    , mkDatasource
+    , CustomVariable =
+      { Type = TemplatingVariable.CustomVariable, default = customValue }
+    , mkCustom
+    , ConstantVariable =
+      { Type = TemplatingVariable.ConstantVariable, default = constantValue }
+    , mkConstant
+    , TextboxVariable =
+      { Type = TemplatingVariable.TextboxVariable, default = textboxValue }
+    , mkTextbox
+    , AdHocVariable =
+      { Type = TemplatingVariable.AdHocVariable, default = adHocValue }
+    , mkAdHoc
+    , hide
+    }

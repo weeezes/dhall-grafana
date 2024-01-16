@@ -1,15 +1,8 @@
 let Mode = < html | markdown >
+
 let PanelType = < text >
-let TextPanel = 
-    ./BasePanel.dhall //\\
-    { content : Text
-    , mode : Mode
-    , type : PanelType
-    }
 
-in
+let TextPanel =
+      ./BasePanel.dhall //\\ { content : Text, mode : Mode, type : PanelType }
 
-{ Type = TextPanel
-, Mode = Mode
-, PanelType = PanelType
-}
+in  { Type = TextPanel, Mode, PanelType }

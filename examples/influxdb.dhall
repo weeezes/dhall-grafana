@@ -41,7 +41,8 @@ let dashboard =
       , editable = True
       , time = { from = "2019-09-16T21:00:00Z", to = "2019-09-17T20:00:00Z" }
       , panels =
-          Grafana.Utils.generateIds [ noaa-panel "H2O (feet)" "h2o_feet" "water_level" ]
+          Grafana.Utils.generateIds
+            [ noaa-panel "H2O (feet)" "h2o_feet" "water_level" ]
       }
 
 in  dashboard

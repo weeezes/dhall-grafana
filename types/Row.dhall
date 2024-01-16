@@ -1,12 +1,5 @@
 let PanelType = < row >
-let Row =
-    ./BasePanel.dhall //\\
-    { collapsed : Bool
-    , type : PanelType
-    }
 
-in
+let Row = ./BasePanel.dhall //\\ { collapsed : Bool, type : PanelType }
 
-{ Type = Row
-, PanelType = PanelType
-}
+in  { Type = Row, PanelType }
