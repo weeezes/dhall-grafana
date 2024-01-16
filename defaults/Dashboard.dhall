@@ -8,7 +8,7 @@ in
 , title = "Title"
 , tags = [] : List Text
 , style = Dashboard.Style.dark
-, timezone = Some Dashboard.TimeZone.utc
+, timezone = Some Dashboard.Timezone.utc
 , editable = False
 , hideControls = False
 , graphTooltip = 0
