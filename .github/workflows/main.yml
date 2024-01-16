@@ -1,12 +1,28 @@
 name: CI
 
-on: push
+on:
+  push:
+  pull_request:
 
 jobs:
-  build:
-
+  lint:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download dhall
+      uses: Legion2/download-release-action@v2.1.0
+      with:
+        repository: dhall-lang/dhall-haskell
+        tag: '1.42.0'
+        file: dhall-1.42.0-x86_64-linux.tar.bz2
+    - name: Extract dhall
+      run: tar xvf dhall-1.42*.tar.bz2
 
+    - name: Validate dhall format
+      run: find . -name "*.dhall" -exec ./bin/dhall format --check {} \;
+
+  build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - name: Download dhall-to-json
