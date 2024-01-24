@@ -1,3 +1,1 @@
-{ from : Text
-, to : Text
-}
+{ from : Text, to : Text }

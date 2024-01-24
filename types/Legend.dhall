@@ -7,4 +7,4 @@
 , avg : Bool
 , alignAsTable : Bool
 , rightSide : Bool
-} 
+}
